@@ -2,3 +2,691 @@
 2025-05-03 18:54:33,977 - __main__ - INFO - No valid progress file found. Initializing new progress.
 2025-05-03 18:57:48,879 - __main__ - INFO - Unsetting GOOGLE_APPLICATION_CREDENTIALS to use application default credentials
 2025-05-03 18:57:49,333 - __main__ - INFO - No valid progress file found. Initializing new progress.
+2025-05-03 22:11:42,228 - __main__ - DEBUG - Initializing DataPipeline class...
+2025-05-03 22:11:42,228 - google.auth._default - DEBUG - Checking None for explicit credentials as part of auth process...
+2025-05-03 22:11:42,228 - google.auth._default - DEBUG - Checking Cloud SDK credentials as part of auth process...
+2025-05-03 22:11:42,638 - __main__ - DEBUG - Attempting to load progress from file...
+2025-05-03 22:11:42,638 - __main__ - INFO - No valid progress file found. Initializing new progress.
+2025-05-03 22:11:42,638 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:11:42,638 - __main__ - INFO - Extracting data for 2022-01, ha_tunnus=28
+2025-05-03 22:11:42,638 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 1, 'monthTo': 1, 'hallinnonala': '28'}
+2025-05-03 22:11:42,640 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): api.tutkihallintoa.fi:443
+2025-05-03 22:11:44,875 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=1&monthTo=1&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:11:44,926 - __main__ - INFO - Successfully extracted 2185 rows for 2022-01
+2025-05-03 22:11:44,931 - __main__ - DEBUG - Preparing to load DataFrame with 2185 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:11:44,931 - google.cloud.bigquery.opentelemetry_tracing - DEBUG - This service is instrumented using OpenTelemetry. OpenTelemetry or one of its components could not be imported; please add compatible versions of opentelemetry-api and opentelemetry-instrumentation packages in order to get BigQuery Tracing data.
+2025-05-03 22:11:44,932 - urllib3.util.retry - DEBUG - Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2025-05-03 22:11:44,932 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2025-05-03 22:11:44,932 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2025-05-03 22:11:44,983 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2025-05-03 22:11:44,984 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): bigquery.googleapis.com:443
+2025-05-03 22:11:45,170 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:45,999 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:11:46,139 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d4c1206b-4b65-403c-bfb0-03cba632eb82?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:46,141 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.0s ...
+2025-05-03 22:11:46,277 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d4c1206b-4b65-403c-bfb0-03cba632eb82?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:46,279 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:11:47,410 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d4c1206b-4b65-403c-bfb0-03cba632eb82?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:47,412 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:11:47,819 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d4c1206b-4b65-403c-bfb0-03cba632eb82?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:47,821 - __main__ - INFO - Successfully loaded 2185 rows to BigQuery
+2025-05-03 22:11:47,822 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:11:47,822 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:11:47,823 - __main__ - INFO - Extracting data for 2022-02, ha_tunnus=28
+2025-05-03 22:11:47,823 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 2, 'monthTo': 2, 'hallinnonala': '28'}
+2025-05-03 22:11:49,660 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=2&monthTo=2&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:11:49,745 - __main__ - INFO - Successfully extracted 1934 rows for 2022-02
+2025-05-03 22:11:49,746 - __main__ - DEBUG - Preparing to load DataFrame with 1934 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:11:49,919 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:49,925 - google.cloud.bigquery._pandas_helpers - ERROR - Error converting Pandas column with name: "Tililuokka_Tunnus" and datatype: "float64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:11:49,925 - __main__ - ERROR - Error loading data to BigQuery: Error converting Pandas column with name: "Tililuokka_Tunnus" and datatype: "float64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:11:49,925 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:11:49,926 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:11:49,926 - __main__ - DEBUG - Rate limiting: Sleeping for 0.90 seconds
+2025-05-03 22:11:50,828 - __main__ - INFO - Extracting data for 2022-03, ha_tunnus=28
+2025-05-03 22:11:50,828 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 3, 'monthTo': 3, 'hallinnonala': '28'}
+2025-05-03 22:11:52,871 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=3&monthTo=3&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:11:52,903 - __main__ - INFO - Successfully extracted 1993 rows for 2022-03
+2025-05-03 22:11:52,906 - __main__ - DEBUG - Preparing to load DataFrame with 1993 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:11:53,041 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:53,697 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:11:53,807 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/16d5a65d-d5d1-4e62-9fb1-dfa911cfb298?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:53,809 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:11:54,727 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/16d5a65d-d5d1-4e62-9fb1-dfa911cfb298?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:54,728 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:11:56,093 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/16d5a65d-d5d1-4e62-9fb1-dfa911cfb298?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:56,094 - __main__ - INFO - Successfully loaded 1993 rows to BigQuery
+2025-05-03 22:11:56,095 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:11:56,095 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:11:56,095 - __main__ - INFO - Extracting data for 2022-04, ha_tunnus=28
+2025-05-03 22:11:56,095 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 4, 'monthTo': 4, 'hallinnonala': '28'}
+2025-05-03 22:11:57,991 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=4&monthTo=4&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:11:58,024 - __main__ - INFO - Successfully extracted 2049 rows for 2022-04
+2025-05-03 22:11:58,026 - __main__ - DEBUG - Preparing to load DataFrame with 2049 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:11:58,169 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:58,901 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:11:59,030 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e3cdb0b9-f988-49ce-bd6d-1c545d4e5771?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:59,031 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:11:59,377 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e3cdb0b9-f988-49ce-bd6d-1c545d4e5771?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:59,379 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:11:59,841 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e3cdb0b9-f988-49ce-bd6d-1c545d4e5771?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:59,842 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.0s ...
+2025-05-03 22:11:59,964 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e3cdb0b9-f988-49ce-bd6d-1c545d4e5771?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:11:59,966 - google.api_core.retry - DEBUG - Retrying due to , sleeping 2.3s ...
+2025-05-03 22:12:02,355 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e3cdb0b9-f988-49ce-bd6d-1c545d4e5771?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:02,358 - __main__ - INFO - Successfully loaded 2049 rows to BigQuery
+2025-05-03 22:12:02,359 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:02,359 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:02,359 - __main__ - INFO - Extracting data for 2022-05, ha_tunnus=28
+2025-05-03 22:12:02,359 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 5, 'monthTo': 5, 'hallinnonala': '28'}
+2025-05-03 22:12:04,444 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=5&monthTo=5&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:04,477 - __main__ - INFO - Successfully extracted 2137 rows for 2022-05
+2025-05-03 22:12:04,480 - __main__ - DEBUG - Preparing to load DataFrame with 2137 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:04,633 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:05,353 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:05,495 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7c4a876b-952c-48e1-9274-17f39ca3a59f?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:05,496 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.7s ...
+2025-05-03 22:12:06,281 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7c4a876b-952c-48e1-9274-17f39ca3a59f?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:06,282 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:12:07,005 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7c4a876b-952c-48e1-9274-17f39ca3a59f?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:07,006 - __main__ - INFO - Successfully loaded 2137 rows to BigQuery
+2025-05-03 22:12:07,008 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:07,008 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:07,008 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:07,008 - __main__ - INFO - Extracting data for 2022-06, ha_tunnus=28
+2025-05-03 22:12:07,009 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 6, 'monthTo': 6, 'hallinnonala': '28'}
+2025-05-03 22:12:08,939 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=6&monthTo=6&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:08,982 - __main__ - INFO - Successfully extracted 2190 rows for 2022-06
+2025-05-03 22:12:08,985 - __main__ - DEBUG - Preparing to load DataFrame with 2190 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:09,091 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:09,722 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:09,829 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c2b7e258-10cc-4636-a860-38f5733f0148?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:09,831 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:12:10,293 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c2b7e258-10cc-4636-a860-38f5733f0148?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:10,295 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:12:10,509 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c2b7e258-10cc-4636-a860-38f5733f0148?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:10,510 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.2s ...
+2025-05-03 22:12:11,837 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c2b7e258-10cc-4636-a860-38f5733f0148?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:11,839 - __main__ - INFO - Successfully loaded 2190 rows to BigQuery
+2025-05-03 22:12:11,839 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:11,839 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:11,839 - __main__ - INFO - Extracting data for 2022-07, ha_tunnus=28
+2025-05-03 22:12:11,839 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 7, 'monthTo': 7, 'hallinnonala': '28'}
+2025-05-03 22:12:13,753 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=7&monthTo=7&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:13,795 - __main__ - INFO - Successfully extracted 1953 rows for 2022-07
+2025-05-03 22:12:13,798 - __main__ - DEBUG - Preparing to load DataFrame with 1953 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:13,937 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:14,672 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:14,798 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f7610d20-4880-4a0f-94a7-49a962c02119?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:14,801 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:12:15,041 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f7610d20-4880-4a0f-94a7-49a962c02119?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:15,042 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:12:16,269 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f7610d20-4880-4a0f-94a7-49a962c02119?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:16,271 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:12:16,931 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f7610d20-4880-4a0f-94a7-49a962c02119?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:16,932 - __main__ - INFO - Successfully loaded 1953 rows to BigQuery
+2025-05-03 22:12:16,933 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:16,933 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:16,933 - __main__ - INFO - Extracting data for 2022-08, ha_tunnus=28
+2025-05-03 22:12:16,933 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 8, 'monthTo': 8, 'hallinnonala': '28'}
+2025-05-03 22:12:18,860 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=8&monthTo=8&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:18,906 - __main__ - INFO - Successfully extracted 1979 rows for 2022-08
+2025-05-03 22:12:18,908 - __main__ - DEBUG - Preparing to load DataFrame with 1979 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:19,052 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:19,064 - google.cloud.bigquery._pandas_helpers - ERROR - Error converting Pandas column with name: "LkpT_Tunnus" and datatype: "int64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:12:19,064 - __main__ - ERROR - Error loading data to BigQuery: Error converting Pandas column with name: "LkpT_Tunnus" and datatype: "int64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:12:19,066 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:19,066 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:19,066 - __main__ - DEBUG - Rate limiting: Sleeping for 0.87 seconds
+2025-05-03 22:12:19,934 - __main__ - INFO - Extracting data for 2022-09, ha_tunnus=28
+2025-05-03 22:12:19,934 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 9, 'monthTo': 9, 'hallinnonala': '28'}
+2025-05-03 22:12:21,739 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=9&monthTo=9&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:21,805 - __main__ - INFO - Successfully extracted 2136 rows for 2022-09
+2025-05-03 22:12:21,807 - __main__ - DEBUG - Preparing to load DataFrame with 2136 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:21,896 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:22,556 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:22,652 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7e4ffd62-22f9-4d16-8d3d-07310e8b5869?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:22,653 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:12:23,697 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7e4ffd62-22f9-4d16-8d3d-07310e8b5869?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:23,699 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.2s ...
+2025-05-03 22:12:25,008 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7e4ffd62-22f9-4d16-8d3d-07310e8b5869?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:25,009 - __main__ - INFO - Successfully loaded 2136 rows to BigQuery
+2025-05-03 22:12:25,011 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:25,011 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:25,011 - __main__ - INFO - Extracting data for 2022-10, ha_tunnus=28
+2025-05-03 22:12:25,011 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 10, 'monthTo': 10, 'hallinnonala': '28'}
+2025-05-03 22:12:26,858 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=10&monthTo=10&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:26,901 - __main__ - INFO - Successfully extracted 2131 rows for 2022-10
+2025-05-03 22:12:26,903 - __main__ - DEBUG - Preparing to load DataFrame with 2131 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:27,035 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:27,779 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:27,875 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/870f127d-25a2-429f-891e-1367a3db2845?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:27,876 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:12:28,171 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/870f127d-25a2-429f-891e-1367a3db2845?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:28,172 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:12:29,200 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/870f127d-25a2-429f-891e-1367a3db2845?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:29,202 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.6s ...
+2025-05-03 22:12:30,951 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/870f127d-25a2-429f-891e-1367a3db2845?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:30,952 - __main__ - INFO - Successfully loaded 2131 rows to BigQuery
+2025-05-03 22:12:30,953 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:30,953 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:30,953 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:30,953 - __main__ - INFO - Extracting data for 2022-11, ha_tunnus=28
+2025-05-03 22:12:30,954 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 11, 'monthTo': 11, 'hallinnonala': '28'}
+2025-05-03 22:12:32,798 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=11&monthTo=11&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:32,852 - __main__ - INFO - Successfully extracted 2150 rows for 2022-11
+2025-05-03 22:12:32,855 - __main__ - DEBUG - Preparing to load DataFrame with 2150 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:33,009 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:33,719 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:33,820 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6dc493b7-df0e-4310-b5c5-a12e08d4f186?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:33,821 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:12:34,859 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6dc493b7-df0e-4310-b5c5-a12e08d4f186?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:34,861 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.4s ...
+2025-05-03 22:12:36,409 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6dc493b7-df0e-4310-b5c5-a12e08d4f186?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:36,411 - __main__ - INFO - Successfully loaded 2150 rows to BigQuery
+2025-05-03 22:12:36,412 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:36,412 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:36,412 - __main__ - INFO - Extracting data for 2022-12, ha_tunnus=28
+2025-05-03 22:12:36,412 - __main__ - DEBUG - API request parameters: {'yearFrom': 2022, 'yearTo': 2022, 'monthFrom': 12, 'monthTo': 12, 'hallinnonala': '28'}
+2025-05-03 22:12:38,206 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2022&yearTo=2022&monthFrom=12&monthTo=12&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:38,305 - __main__ - INFO - Successfully extracted 2899 rows for 2022-12
+2025-05-03 22:12:38,308 - __main__ - DEBUG - Preparing to load DataFrame with 2899 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:38,462 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:39,092 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:39,207 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c38c3692-a116-440c-aa3b-455702bb89f6?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:39,209 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:12:39,452 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c38c3692-a116-440c-aa3b-455702bb89f6?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:39,454 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:12:40,571 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c38c3692-a116-440c-aa3b-455702bb89f6?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:40,574 - google.api_core.retry - DEBUG - Retrying due to , sleeping 2.0s ...
+2025-05-03 22:12:42,679 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c38c3692-a116-440c-aa3b-455702bb89f6?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:42,681 - __main__ - INFO - Successfully loaded 2899 rows to BigQuery
+2025-05-03 22:12:42,682 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:42,682 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:42,682 - __main__ - INFO - Extracting data for 2023-01, ha_tunnus=28
+2025-05-03 22:12:42,682 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 1, 'monthTo': 1, 'hallinnonala': '28'}
+2025-05-03 22:12:44,613 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=1&monthTo=1&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:44,712 - __main__ - INFO - Successfully extracted 2224 rows for 2023-01
+2025-05-03 22:12:44,715 - __main__ - DEBUG - Preparing to load DataFrame with 2224 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:44,858 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:45,500 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:45,618 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e5d99aff-6525-4609-a9ab-1e5a2aa82664?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:45,620 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:12:46,602 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e5d99aff-6525-4609-a9ab-1e5a2aa82664?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:46,604 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:12:47,890 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e5d99aff-6525-4609-a9ab-1e5a2aa82664?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:47,891 - __main__ - INFO - Successfully loaded 2224 rows to BigQuery
+2025-05-03 22:12:47,893 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:47,893 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:47,893 - __main__ - INFO - Extracting data for 2023-02, ha_tunnus=28
+2025-05-03 22:12:47,893 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 2, 'monthTo': 2, 'hallinnonala': '28'}
+2025-05-03 22:12:49,807 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=2&monthTo=2&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:49,840 - __main__ - INFO - Successfully extracted 1945 rows for 2023-02
+2025-05-03 22:12:49,843 - __main__ - DEBUG - Preparing to load DataFrame with 1945 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:49,975 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:50,586 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:50,680 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d59849ad-c626-42f0-a3cc-887876bdd051?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:50,682 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:12:51,317 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d59849ad-c626-42f0-a3cc-887876bdd051?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:51,319 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:12:52,754 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/d59849ad-c626-42f0-a3cc-887876bdd051?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:52,756 - __main__ - INFO - Successfully loaded 1945 rows to BigQuery
+2025-05-03 22:12:52,757 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:52,757 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:52,757 - __main__ - INFO - Extracting data for 2023-03, ha_tunnus=28
+2025-05-03 22:12:52,757 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 3, 'monthTo': 3, 'hallinnonala': '28'}
+2025-05-03 22:12:54,680 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=3&monthTo=3&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:54,768 - __main__ - INFO - Successfully extracted 2119 rows for 2023-03
+2025-05-03 22:12:54,771 - __main__ - DEBUG - Preparing to load DataFrame with 2119 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:54,911 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:55,632 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:12:55,736 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/2077a95c-264e-4983-8195-3dba45e78425?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:55,738 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:12:55,946 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/2077a95c-264e-4983-8195-3dba45e78425?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:55,948 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.5s ...
+2025-05-03 22:12:57,525 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/2077a95c-264e-4983-8195-3dba45e78425?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:12:57,526 - __main__ - INFO - Successfully loaded 2119 rows to BigQuery
+2025-05-03 22:12:57,528 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:57,528 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:12:57,529 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:12:57,529 - __main__ - INFO - Extracting data for 2023-04, ha_tunnus=28
+2025-05-03 22:12:57,529 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 4, 'monthTo': 4, 'hallinnonala': '28'}
+2025-05-03 22:12:59,423 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=4&monthTo=4&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:12:59,473 - __main__ - INFO - Successfully extracted 2084 rows for 2023-04
+2025-05-03 22:12:59,476 - __main__ - DEBUG - Preparing to load DataFrame with 2084 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:12:59,595 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:00,255 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:00,373 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/87d40c2d-6553-49e8-8e44-7ea233ff90a7?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:00,375 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:13:00,559 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/87d40c2d-6553-49e8-8e44-7ea233ff90a7?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:00,561 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:13:01,984 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/87d40c2d-6553-49e8-8e44-7ea233ff90a7?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:01,985 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:13:02,568 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/87d40c2d-6553-49e8-8e44-7ea233ff90a7?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:02,570 - __main__ - INFO - Successfully loaded 2084 rows to BigQuery
+2025-05-03 22:13:02,571 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:02,571 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:02,571 - __main__ - INFO - Extracting data for 2023-05, ha_tunnus=28
+2025-05-03 22:13:02,571 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 5, 'monthTo': 5, 'hallinnonala': '28'}
+2025-05-03 22:13:04,410 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=5&monthTo=5&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:04,520 - __main__ - INFO - Successfully extracted 2160 rows for 2023-05
+2025-05-03 22:13:04,523 - __main__ - DEBUG - Preparing to load DataFrame with 2160 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:04,684 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:05,360 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:05,474 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f6c8c7b2-c986-470c-82c0-4af39a9da1be?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:05,475 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.4s ...
+2025-05-03 22:13:05,996 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f6c8c7b2-c986-470c-82c0-4af39a9da1be?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:05,997 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:13:06,844 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f6c8c7b2-c986-470c-82c0-4af39a9da1be?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:06,845 - __main__ - INFO - Successfully loaded 2160 rows to BigQuery
+2025-05-03 22:13:06,845 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:06,845 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:06,845 - __main__ - INFO - Extracting data for 2023-06, ha_tunnus=28
+2025-05-03 22:13:06,845 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 6, 'monthTo': 6, 'hallinnonala': '28'}
+2025-05-03 22:13:08,844 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=6&monthTo=6&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:09,808 - __main__ - INFO - Successfully extracted 2144 rows for 2023-06
+2025-05-03 22:13:09,811 - __main__ - DEBUG - Preparing to load DataFrame with 2144 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:09,966 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:10,685 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:10,787 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ca9ae780-84eb-4887-a34f-494aa99a310a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:10,788 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:13:11,097 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ca9ae780-84eb-4887-a34f-494aa99a310a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:11,098 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:13:12,122 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ca9ae780-84eb-4887-a34f-494aa99a310a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:12,124 - google.api_core.retry - DEBUG - Retrying due to , sleeping 2.2s ...
+2025-05-03 22:13:14,398 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ca9ae780-84eb-4887-a34f-494aa99a310a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:14,399 - __main__ - INFO - Successfully loaded 2144 rows to BigQuery
+2025-05-03 22:13:14,401 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:14,401 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:14,401 - __main__ - INFO - Extracting data for 2023-07, ha_tunnus=28
+2025-05-03 22:13:14,401 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 7, 'monthTo': 7, 'hallinnonala': '28'}
+2025-05-03 22:13:16,162 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=7&monthTo=7&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:16,234 - __main__ - INFO - Successfully extracted 1968 rows for 2023-07
+2025-05-03 22:13:16,237 - __main__ - DEBUG - Preparing to load DataFrame with 1968 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:16,377 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:17,136 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:17,252 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ab6a68a6-e9eb-4085-af26-96866b167a88?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:17,254 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:13:17,550 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ab6a68a6-e9eb-4085-af26-96866b167a88?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:17,551 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:13:17,891 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ab6a68a6-e9eb-4085-af26-96866b167a88?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:17,893 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.8s ...
+2025-05-03 22:13:19,798 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ab6a68a6-e9eb-4085-af26-96866b167a88?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:19,800 - __main__ - INFO - Successfully loaded 1968 rows to BigQuery
+2025-05-03 22:13:19,801 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:19,802 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:19,802 - __main__ - INFO - Extracting data for 2023-08, ha_tunnus=28
+2025-05-03 22:13:19,802 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 8, 'monthTo': 8, 'hallinnonala': '28'}
+2025-05-03 22:13:21,644 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=8&monthTo=8&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:21,688 - __main__ - INFO - Successfully extracted 2009 rows for 2023-08
+2025-05-03 22:13:21,691 - __main__ - DEBUG - Preparing to load DataFrame with 2009 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:21,822 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:22,429 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:22,542 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e8ebe51e-32de-4162-818f-f4508be6f876?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:22,544 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:13:22,837 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e8ebe51e-32de-4162-818f-f4508be6f876?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:22,838 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:13:23,206 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e8ebe51e-32de-4162-818f-f4508be6f876?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:23,208 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:13:24,361 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/e8ebe51e-32de-4162-818f-f4508be6f876?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:24,363 - __main__ - INFO - Successfully loaded 2009 rows to BigQuery
+2025-05-03 22:13:24,364 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:24,365 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:24,365 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:24,365 - __main__ - INFO - Extracting data for 2023-09, ha_tunnus=28
+2025-05-03 22:13:24,365 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 9, 'monthTo': 9, 'hallinnonala': '28'}
+2025-05-03 22:13:26,159 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=9&monthTo=9&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:26,234 - __main__ - INFO - Successfully extracted 2076 rows for 2023-09
+2025-05-03 22:13:26,237 - __main__ - DEBUG - Preparing to load DataFrame with 2076 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:26,367 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:27,070 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:27,168 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6ed6970d-d403-43cd-824b-a57cdb9f9bfb?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:27,170 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:13:27,606 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6ed6970d-d403-43cd-824b-a57cdb9f9bfb?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:27,608 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:13:28,983 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/6ed6970d-d403-43cd-824b-a57cdb9f9bfb?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:28,985 - __main__ - INFO - Successfully loaded 2076 rows to BigQuery
+2025-05-03 22:13:28,986 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:28,986 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:28,986 - __main__ - INFO - Extracting data for 2023-10, ha_tunnus=28
+2025-05-03 22:13:28,986 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 10, 'monthTo': 10, 'hallinnonala': '28'}
+2025-05-03 22:13:31,428 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=10&monthTo=10&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:31,527 - __main__ - INFO - Successfully extracted 2107 rows for 2023-10
+2025-05-03 22:13:31,531 - __main__ - DEBUG - Preparing to load DataFrame with 2107 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:31,622 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:32,257 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:32,359 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9a10cf15-6997-47dc-adf7-0ccd2cb957c5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:32,361 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:13:33,449 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9a10cf15-6997-47dc-adf7-0ccd2cb957c5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:33,451 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:13:34,649 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9a10cf15-6997-47dc-adf7-0ccd2cb957c5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:34,651 - __main__ - INFO - Successfully loaded 2107 rows to BigQuery
+2025-05-03 22:13:34,652 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:34,652 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:34,652 - __main__ - INFO - Extracting data for 2023-11, ha_tunnus=28
+2025-05-03 22:13:34,652 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 11, 'monthTo': 11, 'hallinnonala': '28'}
+2025-05-03 22:13:36,390 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=11&monthTo=11&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:36,436 - __main__ - INFO - Successfully extracted 2180 rows for 2023-11
+2025-05-03 22:13:36,439 - __main__ - DEBUG - Preparing to load DataFrame with 2180 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:36,581 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:37,309 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:37,418 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/83cd649e-1f44-434f-9625-a3d606135dc9?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:37,420 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:13:37,624 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/83cd649e-1f44-434f-9625-a3d606135dc9?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:37,626 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:13:37,765 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/83cd649e-1f44-434f-9625-a3d606135dc9?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:37,767 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.4s ...
+2025-05-03 22:13:39,234 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/83cd649e-1f44-434f-9625-a3d606135dc9?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:39,236 - __main__ - INFO - Successfully loaded 2180 rows to BigQuery
+2025-05-03 22:13:39,237 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:39,237 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:39,237 - __main__ - INFO - Extracting data for 2023-12, ha_tunnus=28
+2025-05-03 22:13:39,237 - __main__ - DEBUG - API request parameters: {'yearFrom': 2023, 'yearTo': 2023, 'monthFrom': 12, 'monthTo': 12, 'hallinnonala': '28'}
+2025-05-03 22:13:41,014 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2023&yearTo=2023&monthFrom=12&monthTo=12&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:41,127 - __main__ - INFO - Successfully extracted 2720 rows for 2023-12
+2025-05-03 22:13:41,129 - __main__ - DEBUG - Preparing to load DataFrame with 2720 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:41,274 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:41,286 - google.cloud.bigquery._pandas_helpers - ERROR - Error converting Pandas column with name: "LkpT_Tunnus" and datatype: "float64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:13:41,286 - __main__ - ERROR - Error loading data to BigQuery: Error converting Pandas column with name: "LkpT_Tunnus" and datatype: "float64" to an appropriate pyarrow datatype: Array, ListArray, or StructArray
+2025-05-03 22:13:41,287 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:41,288 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:41,288 - __main__ - DEBUG - Rate limiting: Sleeping for 0.95 seconds
+2025-05-03 22:13:42,242 - __main__ - INFO - Extracting data for 2024-01, ha_tunnus=28
+2025-05-03 22:13:42,243 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 1, 'monthTo': 1, 'hallinnonala': '28'}
+2025-05-03 22:13:45,196 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=1&monthTo=1&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:45,257 - __main__ - INFO - Successfully extracted 2159 rows for 2024-01
+2025-05-03 22:13:45,260 - __main__ - DEBUG - Preparing to load DataFrame with 2159 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:45,418 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:46,116 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:46,204 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7844c771-67b5-46ce-ba7f-6ff1a29461a1?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:46,205 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:13:46,892 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7844c771-67b5-46ce-ba7f-6ff1a29461a1?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:46,893 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.7s ...
+2025-05-03 22:13:47,758 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7844c771-67b5-46ce-ba7f-6ff1a29461a1?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:47,760 - __main__ - INFO - Successfully loaded 2159 rows to BigQuery
+2025-05-03 22:13:47,761 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:47,762 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:47,762 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:47,762 - __main__ - INFO - Extracting data for 2024-02, ha_tunnus=28
+2025-05-03 22:13:47,762 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 2, 'monthTo': 2, 'hallinnonala': '28'}
+2025-05-03 22:13:49,711 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=2&monthTo=2&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:49,744 - __main__ - INFO - Successfully extracted 1891 rows for 2024-02
+2025-05-03 22:13:49,747 - __main__ - DEBUG - Preparing to load DataFrame with 1891 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:49,874 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:50,519 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:50,631 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9c7a89ef-4c8c-4a2c-83ea-0cfed7784b70?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:50,632 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:13:51,623 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9c7a89ef-4c8c-4a2c-83ea-0cfed7784b70?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:51,625 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:13:51,895 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9c7a89ef-4c8c-4a2c-83ea-0cfed7784b70?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:51,895 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:13:52,611 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/9c7a89ef-4c8c-4a2c-83ea-0cfed7784b70?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:52,613 - __main__ - INFO - Successfully loaded 1891 rows to BigQuery
+2025-05-03 22:13:52,613 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:52,613 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:52,613 - __main__ - INFO - Extracting data for 2024-03, ha_tunnus=28
+2025-05-03 22:13:52,613 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 3, 'monthTo': 3, 'hallinnonala': '28'}
+2025-05-03 22:13:54,617 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=3&monthTo=3&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:54,657 - __main__ - INFO - Successfully extracted 1972 rows for 2024-03
+2025-05-03 22:13:54,659 - __main__ - DEBUG - Preparing to load DataFrame with 1972 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:54,789 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:55,539 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:13:55,654 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/56a8429c-2e77-4dcb-9d3a-c4e66697f35a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:55,655 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:13:56,611 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/56a8429c-2e77-4dcb-9d3a-c4e66697f35a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:56,613 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:13:57,282 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/56a8429c-2e77-4dcb-9d3a-c4e66697f35a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:13:57,284 - __main__ - INFO - Successfully loaded 1972 rows to BigQuery
+2025-05-03 22:13:57,286 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:13:57,286 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:13:57,286 - __main__ - INFO - Extracting data for 2024-04, ha_tunnus=28
+2025-05-03 22:13:57,286 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 4, 'monthTo': 4, 'hallinnonala': '28'}
+2025-05-03 22:13:59,748 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=4&monthTo=4&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:13:59,782 - __main__ - INFO - Successfully extracted 2029 rows for 2024-04
+2025-05-03 22:13:59,785 - __main__ - DEBUG - Preparing to load DataFrame with 2029 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:13:59,876 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:00,545 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:00,642 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/caffd8de-f6fe-4711-896c-7269c6c25700?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:00,645 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.7s ...
+2025-05-03 22:14:01,429 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/caffd8de-f6fe-4711-896c-7269c6c25700?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:01,432 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:14:02,549 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/caffd8de-f6fe-4711-896c-7269c6c25700?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:02,551 - __main__ - INFO - Successfully loaded 2029 rows to BigQuery
+2025-05-03 22:14:02,552 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:02,552 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:02,552 - __main__ - INFO - Extracting data for 2024-05, ha_tunnus=28
+2025-05-03 22:14:02,552 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 5, 'monthTo': 5, 'hallinnonala': '28'}
+2025-05-03 22:14:04,448 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=5&monthTo=5&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:04,491 - __main__ - INFO - Successfully extracted 2091 rows for 2024-05
+2025-05-03 22:14:04,493 - __main__ - DEBUG - Preparing to load DataFrame with 2091 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:04,625 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:05,369 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:05,467 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/78b3062a-fb5d-4a38-a266-9cd722721b52?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:05,468 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.1s ...
+2025-05-03 22:14:05,710 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/78b3062a-fb5d-4a38-a266-9cd722721b52?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:05,712 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:14:06,400 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/78b3062a-fb5d-4a38-a266-9cd722721b52?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:06,401 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:14:07,029 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/78b3062a-fb5d-4a38-a266-9cd722721b52?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:07,031 - __main__ - INFO - Successfully loaded 2091 rows to BigQuery
+2025-05-03 22:14:07,032 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:07,032 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:07,032 - __main__ - INFO - Extracting data for 2024-06, ha_tunnus=28
+2025-05-03 22:14:07,032 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 6, 'monthTo': 6, 'hallinnonala': '28'}
+2025-05-03 22:14:08,853 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=6&monthTo=6&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:08,937 - __main__ - INFO - Successfully extracted 2120 rows for 2024-06
+2025-05-03 22:14:08,940 - __main__ - DEBUG - Preparing to load DataFrame with 2120 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:09,035 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:09,771 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:09,864 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/00d96a46-e441-4e41-9cca-527da7a8eb24?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:09,867 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:14:10,494 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/00d96a46-e441-4e41-9cca-527da7a8eb24?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:10,496 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:14:11,727 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/00d96a46-e441-4e41-9cca-527da7a8eb24?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:11,728 - __main__ - INFO - Successfully loaded 2120 rows to BigQuery
+2025-05-03 22:14:11,729 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:11,730 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:11,730 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:11,730 - __main__ - INFO - Extracting data for 2024-07, ha_tunnus=28
+2025-05-03 22:14:11,730 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 7, 'monthTo': 7, 'hallinnonala': '28'}
+2025-05-03 22:14:13,777 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=7&monthTo=7&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:13,810 - __main__ - INFO - Successfully extracted 2007 rows for 2024-07
+2025-05-03 22:14:13,813 - __main__ - DEBUG - Preparing to load DataFrame with 2007 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:13,951 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:14,587 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:14,682 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ce64b39b-45dd-405f-9cbf-bdb26e44f4a0?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:14,684 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.3s ...
+2025-05-03 22:14:15,080 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ce64b39b-45dd-405f-9cbf-bdb26e44f4a0?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:15,082 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:14:16,316 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/ce64b39b-45dd-405f-9cbf-bdb26e44f4a0?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:16,318 - __main__ - INFO - Successfully loaded 2007 rows to BigQuery
+2025-05-03 22:14:16,319 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:16,319 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:16,319 - __main__ - INFO - Extracting data for 2024-08, ha_tunnus=28
+2025-05-03 22:14:16,319 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 8, 'monthTo': 8, 'hallinnonala': '28'}
+2025-05-03 22:14:18,272 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=8&monthTo=8&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:19,193 - __main__ - INFO - Successfully extracted 1952 rows for 2024-08
+2025-05-03 22:14:19,197 - __main__ - DEBUG - Preparing to load DataFrame with 1952 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:19,332 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:20,011 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:20,100 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fea09d91-04cb-4c6f-beaa-ed6dba933457?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:20,102 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:14:21,090 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fea09d91-04cb-4c6f-beaa-ed6dba933457?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:21,091 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:14:22,504 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fea09d91-04cb-4c6f-beaa-ed6dba933457?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:22,506 - __main__ - INFO - Successfully loaded 1952 rows to BigQuery
+2025-05-03 22:14:22,507 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:22,508 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:22,508 - __main__ - INFO - Extracting data for 2024-09, ha_tunnus=28
+2025-05-03 22:14:22,508 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 9, 'monthTo': 9, 'hallinnonala': '28'}
+2025-05-03 22:14:24,416 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=9&monthTo=9&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:24,456 - __main__ - INFO - Successfully extracted 2118 rows for 2024-09
+2025-05-03 22:14:24,459 - __main__ - DEBUG - Preparing to load DataFrame with 2118 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:24,623 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:25,336 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:25,418 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f197898f-6c92-44dc-bbde-58b6bcfa1b6e?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:25,420 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.6s ...
+2025-05-03 22:14:26,109 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f197898f-6c92-44dc-bbde-58b6bcfa1b6e?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:26,111 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:14:27,163 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/f197898f-6c92-44dc-bbde-58b6bcfa1b6e?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:27,164 - __main__ - INFO - Successfully loaded 2118 rows to BigQuery
+2025-05-03 22:14:27,165 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:27,165 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:27,165 - __main__ - INFO - Extracting data for 2024-10, ha_tunnus=28
+2025-05-03 22:14:27,165 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 10, 'monthTo': 10, 'hallinnonala': '28'}
+2025-05-03 22:14:28,975 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=10&monthTo=10&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:29,012 - __main__ - INFO - Successfully extracted 2162 rows for 2024-10
+2025-05-03 22:14:29,014 - __main__ - DEBUG - Preparing to load DataFrame with 2162 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:29,130 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:29,739 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:29,843 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fef22755-46b2-439f-af9f-f2702d5a4f01?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:29,845 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.2s ...
+2025-05-03 22:14:30,172 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fef22755-46b2-439f-af9f-f2702d5a4f01?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:30,175 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:14:31,136 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fef22755-46b2-439f-af9f-f2702d5a4f01?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:31,137 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.8s ...
+2025-05-03 22:14:33,066 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fef22755-46b2-439f-af9f-f2702d5a4f01?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:33,067 - __main__ - INFO - Successfully loaded 2162 rows to BigQuery
+2025-05-03 22:14:33,069 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:33,069 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:33,069 - __main__ - INFO - Extracting data for 2024-11, ha_tunnus=28
+2025-05-03 22:14:33,069 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 11, 'monthTo': 11, 'hallinnonala': '28'}
+2025-05-03 22:14:34,860 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=11&monthTo=11&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:34,916 - __main__ - INFO - Successfully extracted 2113 rows for 2024-11
+2025-05-03 22:14:34,919 - __main__ - DEBUG - Preparing to load DataFrame with 2113 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:35,049 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:35,678 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:35,792 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fede7f2a-e6da-4dee-b16d-abe3342d07ac?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:35,795 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.0s ...
+2025-05-03 22:14:35,947 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fede7f2a-e6da-4dee-b16d-abe3342d07ac?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:35,948 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:14:37,214 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fede7f2a-e6da-4dee-b16d-abe3342d07ac?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:37,215 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:14:38,386 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/fede7f2a-e6da-4dee-b16d-abe3342d07ac?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:38,388 - __main__ - INFO - Successfully loaded 2113 rows to BigQuery
+2025-05-03 22:14:38,389 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:38,390 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:38,390 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:38,390 - __main__ - INFO - Extracting data for 2024-12, ha_tunnus=28
+2025-05-03 22:14:38,390 - __main__ - DEBUG - API request parameters: {'yearFrom': 2024, 'yearTo': 2024, 'monthFrom': 12, 'monthTo': 12, 'hallinnonala': '28'}
+2025-05-03 22:14:40,228 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2024&yearTo=2024&monthFrom=12&monthTo=12&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:41,253 - __main__ - INFO - Successfully extracted 2788 rows for 2024-12
+2025-05-03 22:14:41,256 - __main__ - DEBUG - Preparing to load DataFrame with 2788 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:41,420 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:42,061 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:42,148 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7a39616a-d356-4f35-a682-869ff0cc9de5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:42,149 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.0s ...
+2025-05-03 22:14:43,222 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7a39616a-d356-4f35-a682-869ff0cc9de5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:43,223 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.5s ...
+2025-05-03 22:14:44,803 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/7a39616a-d356-4f35-a682-869ff0cc9de5?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:44,804 - __main__ - INFO - Successfully loaded 2788 rows to BigQuery
+2025-05-03 22:14:44,805 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:44,805 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:44,806 - __main__ - INFO - Extracting data for 2025-01, ha_tunnus=28
+2025-05-03 22:14:44,806 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 1, 'monthTo': 1, 'hallinnonala': '28'}
+2025-05-03 22:14:46,850 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=1&monthTo=1&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:46,893 - __main__ - INFO - Successfully extracted 2154 rows for 2025-01
+2025-05-03 22:14:46,895 - __main__ - DEBUG - Preparing to load DataFrame with 2154 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:47,019 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:47,594 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:47,670 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/b5f54465-e2e3-401d-97d5-e29ac1e0d2ad?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:47,671 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:14:48,595 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/b5f54465-e2e3-401d-97d5-e29ac1e0d2ad?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:48,596 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.1s ...
+2025-05-03 22:14:49,791 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/b5f54465-e2e3-401d-97d5-e29ac1e0d2ad?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:49,793 - __main__ - INFO - Successfully loaded 2154 rows to BigQuery
+2025-05-03 22:14:49,794 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:49,794 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:49,794 - __main__ - INFO - Extracting data for 2025-02, ha_tunnus=28
+2025-05-03 22:14:49,794 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 2, 'monthTo': 2, 'hallinnonala': '28'}
+2025-05-03 22:14:51,718 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=2&monthTo=2&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:51,779 - __main__ - INFO - Successfully extracted 2005 rows for 2025-02
+2025-05-03 22:14:51,782 - __main__ - DEBUG - Preparing to load DataFrame with 2005 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:51,877 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:52,483 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:52,586 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c289b919-cadf-419b-ad90-b57bac04145a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:52,587 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.5s ...
+2025-05-03 22:14:53,144 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c289b919-cadf-419b-ad90-b57bac04145a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:53,147 - google.api_core.retry - DEBUG - Retrying due to , sleeping 1.3s ...
+2025-05-03 22:14:54,568 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/c289b919-cadf-419b-ad90-b57bac04145a?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:54,570 - __main__ - INFO - Successfully loaded 2005 rows to BigQuery
+2025-05-03 22:14:54,571 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:54,572 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:54,572 - __main__ - INFO - Extracting data for 2025-03, ha_tunnus=28
+2025-05-03 22:14:54,572 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 3, 'monthTo': 3, 'hallinnonala': '28'}
+2025-05-03 22:14:56,467 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=3&monthTo=3&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:14:56,507 - __main__ - INFO - Successfully extracted 2013 rows for 2025-03
+2025-05-03 22:14:56,510 - __main__ - DEBUG - Preparing to load DataFrame with 2013 rows to BigQuery table massi-financial-analysis.finnish_finance_data.budget_transactions
+2025-05-03 22:14:56,643 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/datasets/finnish_finance_data/tables/budget_transactions?prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:57,280 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "POST /upload/bigquery/v2/projects/massi-financial-analysis/jobs?uploadType=multipart HTTP/1.1" 200 5454
+2025-05-03 22:14:57,382 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/30a585ea-16b8-4813-a50c-bed14772f131?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:57,386 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.8s ...
+2025-05-03 22:14:58,327 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/30a585ea-16b8-4813-a50c-bed14772f131?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:58,329 - google.api_core.retry - DEBUG - Retrying due to , sleeping 0.9s ...
+2025-05-03 22:14:59,393 - urllib3.connectionpool - DEBUG - https://bigquery.googleapis.com:443 "GET /bigquery/v2/projects/massi-financial-analysis/jobs/30a585ea-16b8-4813-a50c-bed14772f131?projection=full&location=EU&prettyPrint=false HTTP/1.1" 200 None
+2025-05-03 22:14:59,395 - __main__ - INFO - Successfully loaded 2013 rows to BigQuery
+2025-05-03 22:14:59,396 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:14:59,396 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:14:59,396 - __main__ - INFO - Extracting data for 2025-04, ha_tunnus=28
+2025-05-03 22:14:59,396 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 4, 'monthTo': 4, 'hallinnonala': '28'}
+2025-05-03 22:15:01,257 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=4&monthTo=4&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:01,265 - __main__ - INFO - Successfully extracted 0 rows for 2025-04
+2025-05-03 22:15:01,266 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:01,267 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:01,267 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:01,267 - __main__ - DEBUG - Rate limiting: Sleeping for 1.13 seconds
+2025-05-03 22:15:02,401 - __main__ - INFO - Extracting data for 2025-05, ha_tunnus=28
+2025-05-03 22:15:02,402 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 5, 'monthTo': 5, 'hallinnonala': '28'}
+2025-05-03 22:15:04,211 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=5&monthTo=5&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:04,218 - __main__ - INFO - Successfully extracted 0 rows for 2025-05
+2025-05-03 22:15:04,219 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:04,220 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:04,220 - __main__ - DEBUG - Rate limiting: Sleeping for 1.18 seconds
+2025-05-03 22:15:05,405 - __main__ - INFO - Extracting data for 2025-06, ha_tunnus=28
+2025-05-03 22:15:05,405 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 6, 'monthTo': 6, 'hallinnonala': '28'}
+2025-05-03 22:15:07,183 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=6&monthTo=6&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:07,189 - __main__ - INFO - Successfully extracted 0 rows for 2025-06
+2025-05-03 22:15:07,189 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:07,189 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:07,189 - __main__ - DEBUG - Rate limiting: Sleeping for 1.22 seconds
+2025-05-03 22:15:08,405 - __main__ - INFO - Extracting data for 2025-07, ha_tunnus=28
+2025-05-03 22:15:08,406 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 7, 'monthTo': 7, 'hallinnonala': '28'}
+2025-05-03 22:15:10,290 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=7&monthTo=7&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:10,297 - __main__ - INFO - Successfully extracted 0 rows for 2025-07
+2025-05-03 22:15:10,298 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:10,298 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:10,298 - __main__ - DEBUG - Rate limiting: Sleeping for 1.11 seconds
+2025-05-03 22:15:11,410 - __main__ - INFO - Extracting data for 2025-08, ha_tunnus=28
+2025-05-03 22:15:11,411 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 8, 'monthTo': 8, 'hallinnonala': '28'}
+2025-05-03 22:15:13,158 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=8&monthTo=8&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:13,164 - __main__ - INFO - Successfully extracted 0 rows for 2025-08
+2025-05-03 22:15:13,167 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:13,167 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:13,167 - __main__ - DEBUG - Rate limiting: Sleeping for 1.24 seconds
+2025-05-03 22:15:14,411 - __main__ - INFO - Extracting data for 2025-09, ha_tunnus=28
+2025-05-03 22:15:14,412 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 9, 'monthTo': 9, 'hallinnonala': '28'}
+2025-05-03 22:15:16,197 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=9&monthTo=9&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:16,202 - __main__ - INFO - Successfully extracted 0 rows for 2025-09
+2025-05-03 22:15:16,203 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:16,204 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:16,205 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:16,205 - __main__ - DEBUG - Rate limiting: Sleeping for 1.21 seconds
+2025-05-03 22:15:17,415 - __main__ - INFO - Extracting data for 2025-10, ha_tunnus=28
+2025-05-03 22:15:17,416 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 10, 'monthTo': 10, 'hallinnonala': '28'}
+2025-05-03 22:15:19,180 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=10&monthTo=10&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:19,186 - __main__ - INFO - Successfully extracted 0 rows for 2025-10
+2025-05-03 22:15:19,188 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:19,188 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:19,188 - __main__ - DEBUG - Rate limiting: Sleeping for 1.23 seconds
+2025-05-03 22:15:20,418 - __main__ - INFO - Extracting data for 2025-11, ha_tunnus=28
+2025-05-03 22:15:20,419 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 11, 'monthTo': 11, 'hallinnonala': '28'}
+2025-05-03 22:15:22,173 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=11&monthTo=11&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:22,179 - __main__ - INFO - Successfully extracted 0 rows for 2025-11
+2025-05-03 22:15:22,180 - __main__ - INFO - Progress saved to extraction_progress.json
+2025-05-03 22:15:22,180 - __main__ - DEBUG - Checking rate limit before making API request...
+2025-05-03 22:15:22,180 - __main__ - DEBUG - Rate limiting: Sleeping for 1.24 seconds
+2025-05-03 22:15:23,419 - __main__ - INFO - Extracting data for 2025-12, ha_tunnus=28
+2025-05-03 22:15:23,419 - __main__ - DEBUG - API request parameters: {'yearFrom': 2025, 'yearTo': 2025, 'monthFrom': 12, 'monthTo': 12, 'hallinnonala': '28'}
+2025-05-03 22:15:25,138 - urllib3.connectionpool - DEBUG - https://api.tutkihallintoa.fi:443 "GET /valtiontalous/v1/budjettitaloudentapahtumat?yearFrom=2025&yearTo=2025&monthFrom=12&monthTo=12&hallinnonala=28 HTTP/1.1" 200 None
+2025-05-03 22:15:25,143 - __main__ - INFO - Successfully extracted 0 rows for 2025-12
+2025-05-03 22:15:25,144 - __main__ - INFO - Progress saved to extraction_progress.json
