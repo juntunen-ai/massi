@@ -1,0 +1,4 @@
+2025-05-03 18:54:33,531 - __main__ - INFO - Unsetting GOOGLE_APPLICATION_CREDENTIALS to use application default credentials
+2025-05-03 18:54:33,977 - __main__ - INFO - No valid progress file found. Initializing new progress.
+2025-05-03 18:57:48,879 - __main__ - INFO - Unsetting GOOGLE_APPLICATION_CREDENTIALS to use application default credentials
+2025-05-03 18:57:49,333 - __main__ - INFO - No valid progress file found. Initializing new progress.

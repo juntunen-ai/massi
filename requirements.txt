@@ -1,0 +1,24 @@
+# Web framework
+streamlit>=1.31.0
+
+# Data processing and visualization
+pandas>=2.1.0
+numpy>=1.26.0
+plotly>=5.18.0
+matplotlib>=3.8.0
+altair>=5.2.0
+pandas-ai>=2.0.0
+
+# Database connectivity
+google-cloud-bigquery>=3.14.0
+db-dtypes>=1.2.0
+
+# LLM and NLP
+google-cloud-aiplatform>=1.47.0
+langchain>=0.1.0
+langchain-core>=0.1.0
+langgraph>=0.1.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.5.0
