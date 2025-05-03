@@ -1,0 +1,492 @@
+{
+  "2015": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2015,
+        "yearTo": 2015
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2015,
+        "yearTo": 2015
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2015,
+        "yearTo": 2015
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2015,
+        "yearTo": 2015
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2015,
+        "yearTo": 2015
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2016": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2016,
+        "yearTo": 2016
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2016,
+        "yearTo": 2016
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2016,
+        "yearTo": 2016
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2016,
+        "yearTo": 2016
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2016,
+        "yearTo": 2016
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2017": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2017,
+        "yearTo": 2017
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2017,
+        "yearTo": 2017
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2017,
+        "yearTo": 2017
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2017,
+        "yearTo": 2017
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2017,
+        "yearTo": 2017
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2018": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2018,
+        "yearTo": 2018
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2018,
+        "yearTo": 2018
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2018,
+        "yearTo": 2018
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2018,
+        "yearTo": 2018
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2018,
+        "yearTo": 2018
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2019": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2019,
+        "yearTo": 2019
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2019,
+        "yearTo": 2019
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2019,
+        "yearTo": 2019
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2019,
+        "yearTo": 2019
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2019,
+        "yearTo": 2019
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2020": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2020,
+        "yearTo": 2020
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2020,
+        "yearTo": 2020
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2020,
+        "yearTo": 2020
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2020,
+        "yearTo": 2020
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2020,
+        "yearTo": 2020
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2021": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2021,
+        "yearTo": 2021
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2021,
+        "yearTo": 2021
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2021,
+        "yearTo": 2021
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2021,
+        "yearTo": 2021
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2021,
+        "yearTo": 2021
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2022": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2022,
+        "yearTo": 2022
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2022,
+        "yearTo": 2022
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2022,
+        "yearTo": 2022
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2022,
+        "yearTo": 2022
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2022,
+        "yearTo": 2022
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2023": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2023,
+        "yearTo": 2023
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2023,
+        "yearTo": 2023
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2023,
+        "yearTo": 2023
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2023,
+        "yearTo": 2023
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2023,
+        "yearTo": 2023
+      },
+      "success": false,
+      "count": 0
+    }
+  },
+  "2024": {
+    "params_1": {
+      "params": {
+        "hallinnonala": "28",
+        "yearFrom": 2024,
+        "yearTo": 2024
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_2": {
+      "params": {
+        "hallinnonala": "26",
+        "yearFrom": 2024,
+        "yearTo": 2024
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_3": {
+      "params": {
+        "hallinnonala": "23",
+        "yearFrom": 2024,
+        "yearTo": 2024
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_4": {
+      "params": {
+        "paaluokka": "28",
+        "yearFrom": 2024,
+        "yearTo": 2024
+      },
+      "success": false,
+      "count": 0
+    },
+    "params_5": {
+      "params": {
+        "hallinnonala": "28",
+        "monthFrom": 1,
+        "monthTo": 1,
+        "yearFrom": 2024,
+        "yearTo": 2024
+      },
+      "success": false,
+      "count": 0
+    }
+  }
+}
