@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 # Configure Streamlit page
 st.set_page_config(
-    page_title="Finnish Government Budget Explorer",
+    page_title="Budjettihaukka",  # Changed from "Finnish Government Budget Explorer"
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",

@@ -173,13 +173,13 @@ class Sidebar:
         st.markdown("---")
         st.markdown("### About")
         st.markdown("""
-        This application allows you to explore Finnish government financial data using natural language queries.
+        Budjettihaukka allows you to explore Finnish government financial data using natural language queries.
         
         Data is sourced from the [Tutkihallintoa.fi](https://tutkihallintoa.fi/) API and covers government budget and spending data.
         
         Built with Streamlit, BigQuery, and Vertex AI.
         """)
-        
+
         # Add feedback option
         st.markdown("### Feedback")
         with st.form(key="feedback_form"):

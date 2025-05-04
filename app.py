@@ -17,7 +17,7 @@ from components.visualization_display import VisualizationDisplay
 from components.sidebar import Sidebar
 
 # Import utility functions
-from utils.mock_data import MockDataProvider
+from utils.real_data_provider import RealDataProvider  # Changed from MockDataProvider
 from utils.visualization import FinancialDataVisualizer
 
 # Configure logging
@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 # Configure Streamlit page
 st.set_page_config(
-    page_title="Finnish Government Budget Explorer",
+    page_title="Budjettihaukka",  # Changed from "Finnish Government Budget Explorer"
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -39,7 +39,7 @@ class FinancialDataApp:
     def __init__(self):
         """Initialize the application."""
         # Initialize mock data provider
-        self.data_provider = MockDataProvider()
+        self.data_provider = RealDataProvider()
         
         # Initialize visualization component
         self.visualizer = FinancialDataVisualizer()
@@ -118,10 +118,10 @@ class FinancialDataApp:
         if "military budget" in query_lower and "2022" in query_lower:
             sql = """
             SELECT 
-              SUM(Alkuperäinen_talousarvio) as original_budget,
-              SUM(Voimassaoleva_talousarvio) as current_budget
+              SUM(`Alkuperäinen_talousarvio`) as original_budget,
+              SUM(`Voimassaoleva_talousarvio`) as current_budget
             FROM 
-              budget_data
+              `massi-financial-analysis.finnish_finance_data.budget_transactions`
             WHERE 
               Vuosi = 2022 
               AND Ha_Tunnus = 26
@@ -134,10 +134,10 @@ class FinancialDataApp:
             SELECT 
               Vuosi as year,
               CEIL(Kk/3) as quarter,
-              SUM(Voimassaoleva_talousarvio) as budget,
-              SUM(Nettokertymä) as spending
+              SUM(`Voimassaoleva_talousarvio`) as budget,
+              SUM(`Nettokertymä`) as spending
             FROM 
-              budget_data
+              `massi-financial-analysis.finnish_finance_data.budget_transactions`
             WHERE 
               Vuosi IN (2022, 2023)
               AND Ha_Tunnus = 26
@@ -153,14 +153,14 @@ class FinancialDataApp:
             sql = """
             SELECT 
               Vuosi as year,
-              SUM(Alkuperäinen_talousarvio) as original_budget,
-              SUM(Voimassaoleva_talousarvio) as current_budget,
-              SUM(Nettokertymä) as spending
+              SUM(`Alkuperäinen_talousarvio`) as original_budget,
+              SUM(`Voimassaoleva_talousarvio`) as current_budget,
+              SUM(`Nettokertymä`) as spending
             FROM 
-              budget_data
+              `massi-financial-analysis.finnish_finance_data.budget_transactions`
             WHERE 
               Vuosi BETWEEN 2020 AND 2023
-              AND Ha_Tunnus = 28
+              AND Ha_Tunnus = 29
             GROUP BY 
               year
             ORDER BY 
@@ -173,9 +173,9 @@ class FinancialDataApp:
             sql = """
             SELECT 
               Hallinnonala as ministry,
-              SUM(Nettokertymä) as spending
+              SUM(`Nettokertymä`) as spending
             FROM 
-              budget_data
+              `massi-financial-analysis.finnish_finance_data.budget_transactions`
             WHERE 
               Vuosi = 2023
             GROUP BY 
@@ -192,10 +192,10 @@ class FinancialDataApp:
             sql = """
             SELECT 
               Vuosi as year,
-              SUM(Voimassaoleva_talousarvio) as budget,
-              SUM(Nettokertymä) as spending
+              SUM(`Voimassaoleva_talousarvio`) as budget,
+              SUM(`Nettokertymä`) as spending
             FROM 
-              budget_data
+              `massi-financial-analysis.finnish_finance_data.budget_transactions`
             GROUP BY 
               year
             ORDER BY 

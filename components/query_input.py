@@ -33,7 +33,7 @@ class QueryInput:
     
     def render(self):
         """Render the query input component."""
-        st.title("Finnish Government Budget Explorer")
+        st.title("Budjettihaukka")  # Changed from "Finnish Government Budget Explorer"
         st.markdown("""
         Ask questions about Finnish government budgets and finances in natural language.
         The system will convert your question to SQL, retrieve the data, and provide visualizations.
