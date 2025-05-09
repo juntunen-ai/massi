@@ -72,12 +72,23 @@ class BigQueryLoader:
         """
         try:
             # Handle any data cleaning or transformation
-            # Add preprocessing to create the YearMonth field
-            if 'Vuosi' in df.columns and 'Kk' in df.columns:
-                df['YearMonth'] = pd.to_datetime(df['Vuosi'].astype(str) + '-' + df['Kk'].astype(str).str.zfill(2) + '-01')
+            # Remove preprocessing to create the YearMonth field
+            # if 'Vuosi' in df.columns and 'Kk' in df.columns:
+            #     df['YearMonth'] = pd.to_datetime(df['Vuosi'].astype(str) + '-' + df['Kk'].astype(str).str.zfill(2) + '-01')
             
             # Convert numeric columns to strings where needed based on schema
             df['Tililuokka_Tunnus'] = df['Tililuokka_Tunnus'].astype(str)
+            
+            # Add conversion for LkpT_Tunnus as well
+            df['LkpT_Tunnus'] = df['LkpT_Tunnus'].astype(str)
+            
+            # Handle type conversions for problematic columns
+            type_conversion_columns = ['Tililuokka_Tunnus', 'LkpT_Tunnus', 'PaaluokkaOsasto_TunnusP', 
+                                      'Luku_TunnusP', 'Momentti_TunnusP', 'TakpT_TunnusP', 
+                                      'Ylatiliryhma_Tunnus', 'Tiliryhma_Tunnus', 'Tililaji_Tunnus']
+            for col in type_conversion_columns:
+                if col in df.columns and df[col].dtype != 'object':
+                    df[col] = df[col].fillna('').astype(str)
             
             # Convert NaN values to None for proper NULL handling in BigQuery
             df = df.where(pd.notnull(df), None)

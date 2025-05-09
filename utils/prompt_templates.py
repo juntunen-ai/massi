@@ -5,6 +5,22 @@ Prompt templates for LLM interactions.
 from typing import Dict, Any, List
 import pandas as pd
 import json
+import numpy as np
+from utils.schema_service import schema_service
+
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, pd.Timestamp):
+            return obj.isoformat()
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        return super(NpEncoder, self).default(obj)
 
 class PromptTemplates:
     """Class for managing prompt templates for LLM interactions."""
@@ -13,123 +29,62 @@ class PromptTemplates:
     def nl_to_sql_prompt(schema: List[Dict[str, Any]], table_name: str, query: str) -> str:
         """
         Generate a prompt for the NL to SQL conversion.
-        
-        Args:
-            schema (List[Dict[str, Any]]): Table schema
-            table_name (str): Fully-qualified table name
-            query (str): Natural language query
-            
-        Returns:
-            str: Formatted prompt
         """
-        # Format schema for the prompt
-        schema_str = "\n".join([
-            f"- {field['name']} ({field['type']}): {field.get('description', '')}"
-            for field in schema
-        ])
+        # Add special instructions for Finnish character handling
+        special_instructions = """
+        IMPORTANT INSTRUCTIONS FOR HANDLING FINNISH CHARACTERS:
         
-        # Define Finnish government finance domain knowledge
-        domain_knowledge = """
-        The data contains Finnish government budget and accounting information with these key concepts:
+        1. Always use backticks (`) for column names with Finnish characters (ä, ö, å)
+        2. Column names with special characters include:
+           - `Alkuperäinen_talousarvio` (Original budget)
+           - `Voimassaoleva_talousarvio` (Current budget)  
+           - `Nettokertymä` (Net accumulation)
+           - `Käytettävissä` (Available)
+           - `Lisätalousarvio` (Supplementary budget)
+           - `Loppusaldo` (Closing balance)
+           
+        3. Numeric vs String types:
+           - Ha_Tunnus: INTEGER (administrative branch code)
+           - Tililuokka_Tunnus: STRING (account class code)
+           - LkpT_Tunnus: STRING (business accounting code)
         
-        1. Administrative structure:
-           - Ha_Tunnus/Hallinnonala: Administrative branch (e.g., 28 = Ministry of Defense, 26 = Ministry of Interior)
-           - Tv_Tunnus/Kirjanpitoyksikkö: Accounting unit
-        
-        2. Budget structure (hierarchy):
-           - PaaluokkaOsasto: Main class/section (top level)
-           - Luku: Chapter (second level)
-           - Momentti: Moment/budget line (third level)
-           - TakpT: Budget account (detailed level)
-        
-        3. Accounting structure:
-           - Tililuokka: Account class
-           - Ylatiliryhma: Parent account group
-           - Tiliryhma: Account group
-           - Tililaji: Account type
-           - LkpT: Business accounting code
-        
-        4. Financial values:
-           - Alkuperäinen_talousarvio: Original budget allocation
-           - Lisätalousarvio: Supplementary budget
-           - Voimassaoleva_talousarvio: Current valid budget
-           - Käytettävissä: Available funds
-           - Alkusaldo: Opening balance
-           - Nettokertymä_ko_vuodelta: Net accumulation for the current year
-           - NettoKertymaAikVuosSiirrt: Net accumulation from previous years
-           - Nettokertymä: Total net accumulation (actual spending/income)
-           - Loppusaldo: Closing balance
+        4. Common patterns:
+           - Defense/Military queries: Use Ha_Tunnus = 26
+           - Education queries: Use Ha_Tunnus = 29
+           - Finance ministry: Use Ha_Tunnus = 23
+           - For "budget" use `Voimassaoleva_talousarvio`
+           - For "spending" use `Nettokertymä`
         """
         
-        # Include examples of common query patterns
+        # Enhanced examples with proper Finnish character handling
         examples = """
         Example 1:
         Question: What was the military budget for 2022?
         SQL: 
         ```sql
         SELECT 
-          SUM(Alkuperäinen_talousarvio) as original_budget,
-          SUM(Voimassaoleva_talousarvio) as current_budget
+          SUM(`Alkuperäinen_talousarvio`) as original_budget,
+          SUM(`Voimassaoleva_talousarvio`) as current_budget
         FROM 
           `{table_name}`
         WHERE 
           Vuosi = 2022 
-          AND Ha_Tunnus = 28
+          AND Ha_Tunnus = 26
         ```
         
         Example 2:
-        Question: Compare defense spending between 2022 and 2023 by quarter
+        Question: How has military spending developed from 2020 to 2024?
         SQL:
         ```sql
         SELECT 
           Vuosi as year,
-          CEIL(Kk/3) as quarter,
-          SUM(Voimassaoleva_talousarvio) as budget,
-          SUM(Nettokertymä) as spending
+          SUM(`Alkuperäinen_talousarvio`) as original_budget,
+          SUM(`Voimassaoleva_talousarvio`) as current_budget,
+          SUM(`Nettokertymä`) as actual_spending
         FROM 
           `{table_name}`
         WHERE 
-          Vuosi IN (2022, 2023)
-          AND Ha_Tunnus = 28
-        GROUP BY 
-          year, quarter
-        ORDER BY 
-          year, quarter
-        ```
-        
-        Example 3:
-        Question: What has been the development of military budget during 2020-2023?
-        SQL:
-        ```sql
-        SELECT 
-          Vuosi as year,
-          SUM(Alkuperäinen_talousarvio) as original_budget,
-          SUM(Voimassaoleva_talousarvio) as current_budget,
-          SUM(Nettokertymä) as spending
-        FROM 
-          `{table_name}`
-        WHERE 
-          Vuosi BETWEEN 2020 AND 2023
-          AND Ha_Tunnus = 28
-        GROUP BY 
-          year
-        ORDER BY 
-          year
-        ```
-        
-        Example 4:
-        Question: How did the budget utilization rate of the Ministry of Interior change from 2021 to 2023?
-        SQL:
-        ```sql
-        SELECT 
-          Vuosi as year,
-          SUM(Voimassaoleva_talousarvio) as budget,
-          SUM(Nettokertymä) as actual_spending,
-          (SUM(Nettokertymä) / NULLIF(SUM(Voimassaoleva_talousarvio), 0)) * 100 as utilization_percentage
-        FROM 
-          `{table_name}`
-        WHERE 
-          Vuosi BETWEEN 2021 AND 2023
+          Vuosi BETWEEN 2020 AND 2024
           AND Ha_Tunnus = 26
         GROUP BY 
           year
@@ -138,35 +93,49 @@ class PromptTemplates:
         ```
         """.format(table_name=table_name)
         
-        # Build the complete prompt
-        prompt = f"""
-        You are an expert SQL generator for a Finnish government financial analysis system. 
-        Your task is to convert natural language questions about government finances into BigQuery SQL queries.
+        # Rest of the prompt remains the same, but add special_instructions before examples
+        schema_str = "\n".join([
+            f"- {field['name']} ({field['type']}): {field.get('description', '')}"
+            for field in schema
+        ])
 
-        Here is the schema of the financial data table:
+        prompt = f"""
+        You are a Finnish government financial data SQL expert using Gemini's thinking mode.
+
+        <thinking>
+        Before generating SQL, I should:
+        1. Identify the Finnish financial concepts mentioned in the query
+        2. Map them to correct database columns (remembering Finnish characters like ä, ö)
+        3. Consider the budget hierarchy (Paaluokka -> Luku -> Momentti)
+        4. Handle Finnish language variations properly (e.g., "puolustus" = "defense")
+        5. Determine the appropriate aggregation level and time period
+        6. Check if the query requires comparison or trend analysis
+        </thinking>
+
         Table: `{table_name}`
-        
-        Fields:
+
+        Schema:
         {schema_str}
-        
-        {domain_knowledge}
-        
+
+        {special_instructions}
+
         {examples}
-        
-        Now, please convert the following question to a BigQuery SQL query:
-        
-        Question: {query}
-        
-        Please provide the SQL query and a brief explanation of how it answers the question.
-        Format your response as:
-        
-        SQL:
-        ```sql
-        -- Your SQL query here
-        ```
-        
-        Explanation:
-        A brief explanation of how this SQL query addresses the question.
+
+        Query: {query}
+
+        Generate structured output with these fields:
+        1. "sql": The SQL query
+        2. "explanation": Explanation in natural language  
+        3. "confidence": Confidence score (0-1)
+        4. "assumptions": List of assumptions made (if any)
+
+        Example output format:
+        {{
+          "sql": "SELECT ...",
+          "explanation": "This query calculates...",
+          "confidence": 0.95,
+          "assumptions": ["Assuming question refers to Ministry of Defense", "Using net accumulation as spending measure"]
+        }}
         """
         
         return prompt
@@ -264,7 +233,7 @@ class PromptTemplates:
         Original question: {query}
         
         Dataset information:
-        {json.dumps(df_info, indent=2)}
+        {json.dumps(df_info, indent=2, cls=NpEncoder)}
         
         Available visualization types:
         - time_line: Line chart for time series with a single metric

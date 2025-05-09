@@ -21,3 +21,9 @@ Icon
 .vscode/
 *.swp
 *.swo
+
+# Development artifacts
+*_exploration.py
+*_test.py
+test_*.py  # Temporary files
+api_*.json

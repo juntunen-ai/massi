@@ -5,257 +5,117 @@ import pandas as pd
 from datetime import datetime
 import time
 import io
+from utils.secrets_manager import secrets_manager
+import google.generativeai as genai
+from utils.errors import APIError
+
+# Use centralized secrets manager for API key retrieval
+api_key = secrets_manager.get_api_key_ai_studio()
+if not hasattr(genai, '_configured'):
+        genai.configure(api_key=api_key)
+        genai._configured = True
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, 
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# Commenting out the original TutkihallintoaAPI class
+# class TutkihallintoaAPI:
+#     """Client for interacting with the Tutkihallintoa API for Finnish government financial data."""
+#     ...existing code...
+
+# Adding a dummy implementation of the TutkihallintoaAPI class
 class TutkihallintoaAPI:
-    """Client for interacting with the Tutkihallintoa API for Finnish government financial data."""
-    
-    BASE_URL = "https://api.tutkihallintoa.fi/valtiontalous/v1/budjettitaloudentapahtumat"
+    """
+    Dummy client that doesn't make actual API calls.
+    API functionality has been disabled and replaced with this stub implementation.
+    """
     
     def __init__(self):
-        """Initialize the API client."""
-        self.session = requests.Session()
-        # Minimum time between requests in seconds to avoid rate limiting
-        self.request_delay = 1.0
-        self.last_request_time = 0
-
-    def _respect_rate_limit(self):
-        """Ensure we wait enough time between requests to avoid rate limiting."""
-        current_time = time.time()
-        time_since_last_request = current_time - self.last_request_time
-        
-        if time_since_last_request < self.request_delay:
-            sleep_time = self.request_delay - time_since_last_request
-            logger.info(f"Rate limiting: Sleeping for {sleep_time:.2f} seconds")
-            time.sleep(sleep_time)
-        
-        self.last_request_time = time.time()
-
+        """Initialize the dummy API client."""
+        logger.info("Initializing DISABLED API client - no API calls will be made")
+    
     def get_available_years(self) -> List[int]:
         """
-        Determine the range of available years in the dataset.
+        Return a fixed list of years.
         
         Returns:
             List[int]: List of available years
         """
-        # Start with current year and work backwards
-        current_year = datetime.now().year
-        available_years = []
-        
-        # Try each year from present back to 2000
-        # We'll stop once we get an empty response
-        for year in range(current_year, 1999, -1):
-            params = {
-                'yearFrom': year,
-                'yearTo': year,
-                'monthFrom': 1,
-                'monthTo': 1
-            }
-            
-            logger.info(f"Checking data availability for year {year}")
-            response = self.make_request(params)
-            
-            # If we get data, add the year to our list
-            if response is not None and not response.empty:
-                available_years.append(year)
-                logger.info(f"Data available for year {year}")
-            else:
-                logger.info(f"No data available for year {year}")
-                # If we get 3 consecutive years with no data, assume we've reached the limit
-                if len(available_years) > 0 and available_years[-1] != year + 1:
-                    break
-        
-        return sorted(available_years)
+        logger.info("API DISABLED: Returning hardcoded list of years")
+        return [2020, 2021, 2022, 2023, 2024]
     
     def make_request(self, params: Dict[str, Any]) -> Optional[pd.DataFrame]:
         """
-        Make a request to the API with the given parameters and return result as DataFrame.
+        Dummy method that doesn't make actual API calls.
         
         Args:
             params (Dict[str, Any]): Query parameters
             
         Returns:
-            Optional[pd.DataFrame]: API response as DataFrame or None if request failed
+            None: Always returns None since API is disabled
         """
-        self._respect_rate_limit()
-        
-        try:
-            logger.info(f"Making API request with params: {params}")
-            response = self.session.get(self.BASE_URL, params=params)
-            
-            # Log response status
-            logger.info(f"Response status code: {response.status_code}")
-            
-            # Check if response is successful (status code 200-299)
-            if not response.ok:
-                logger.warning(f"API returned non-success status code: {response.status_code}, response: {response.text[:200]}")
-                return None
-            
-            # Try to get content length
-            content_length = len(response.content)
-            logger.info(f"Response content length: {content_length} bytes")
-            
-            # Parse CSV data
-            try:
-                # Use pandas to read CSV data from the response content
-                df = pd.read_csv(io.StringIO(response.text), sep=',')
-                logger.info(f"Successfully parsed CSV data with {len(df)} rows and {len(df.columns)} columns")
-                return df
-            except Exception as e:
-                logger.error(f"Failed to parse CSV response: {str(e)}")
-                logger.error(f"Response content (first 500 bytes): {response.content[:500]}")
-                return None
-                
-        except requests.exceptions.RequestException as e:
-            logger.error(f"API request failed: {str(e)}")
-            return None
+        logger.warning("API DISABLED: make_request() called but API is disabled")
+        logger.info(f"Would have requested with params: {params}")
+        return None
     
     def get_monthly_data(self, year: int, month: int) -> Optional[pd.DataFrame]:
         """
-        Get data for a specific year and month.
+        Dummy method that doesn't make actual API calls.
         
         Args:
             year (int): Year to fetch
             month (int): Month to fetch (1-12)
             
         Returns:
-            Optional[pd.DataFrame]: DataFrame containing the data or None if request failed
+            None: Always returns None since API is disabled
         """
-        params = {
-            'yearFrom': year,
-            'yearTo': year,
-            'monthFrom': month,
-            'monthTo': month
-        }
-        
-        return self.make_request(params)
+        logger.warning(f"API DISABLED: get_monthly_data() called for {year}-{month} but API is disabled")
+        return None
 
     def sample_data_structure(self) -> Dict[str, Any]:
         """
-        Get a sample of the data structure by fetching a small amount of recent data.
+        Return a dummy data structure description.
         
         Returns:
-            Dict[str, Any]: Information about the data structure
+            Dict[str, Any]: Dummy data structure info
         """
-        # Get the most recent year with data
-        available_years = self.get_available_years()
-        
-        if not available_years:
-            return {"error": "No data available"}
-        
-        recent_year = available_years[-1]
-        
-        # Get January data for the most recent year
-        params = {
-            'yearFrom': recent_year,
-            'yearTo': recent_year,
-            'monthFrom': 1,
-            'monthTo': 1,
-            # Limit results if possible
+        logger.warning("API DISABLED: sample_data_structure() called but API is disabled")
+        return {
+            "note": "API is disabled. This is dummy data for development only.",
+            "fields": [
+                "Vuosi", "Kk", "Ha_Tunnus", "Hallinnonala", "Alkuperäinen_talousarvio",
+                "Voimassaoleva_talousarvio", "Nettokertymä"
+            ],
+            "total_sample_items": 0
         }
-        
-        response = self.make_request(params)
-        
-        if response is None or response.empty:
-            return {"error": "No sample data available"}
-        
-        # Get the first item as a sample
-        sample_item = response.iloc[0].to_dict()
-        
-        # Create a structure report
-        structure = {
-            "sample_item": sample_item,
-            "fields": list(sample_item.keys()),
-            "total_sample_items": len(response)
-        }
-        
-        return structure
 
     def test_api_with_required_params(self):
         """
-        Test the API with different parameter combinations to find what's required.
+        Dummy method that doesn't make actual API calls.
         """
-        # Test with a hallinnonala (administrative branch) parameter
-        # Common hallinnonala values: 23 (Ministry of Finance), 28 (Ministry of Defense)
-        params = {
-            'hallinnonala': '28',  # Try with Ministry of Defense
-            'yearFrom': 2022,
-            'yearTo': 2022,
-            'monthFrom': 1,
-            'monthTo': 12
-        }
-        
-        return self.make_request(params)
+        logger.warning("API DISABLED: test_api_with_required_params() called but API is disabled")
+        return None
 
     def test_different_params(self):
-        """Test different parameter combinations to understand what works."""
-        test_cases = [
-            # Test case 1: Just hallinnonala (administrative branch)
-            {'hallinnonala': '28'},
-            
-            # Test case 2: Hallinnonala with year range
-            {'hallinnonala': '28', 'yearFrom': 2022, 'yearTo': 2022},
-            
-            # Test case 3: Pääluokka (main class)
-            {'paaluokka': '28'},
-            
-            # Test case 4: Luku (chapter)
-            {'luku': '2810'},
-            
-            # Test case 5: Momentti (budget moment)
-            {'momentti': '281001'}
-        ]
-        
-        results = {}
-        for i, params in enumerate(test_cases):
-            logger.info(f"Testing case {i+1}: {params}")
-            result = self.make_request(params)
-            results[f"case_{i+1}"] = {
-                "params": params,
-                "success": result is not None,
-                "data_length": len(result) if result is not None and not result.empty else 0
-            }
-        
-        return results
+        """
+        Dummy method that doesn't make actual API calls.
+        """
+        logger.warning("API DISABLED: test_different_params() called but API is disabled")
+        return {"note": "API is disabled. This is dummy data for development only."}
 
     def get_data_for_period(self, year_from: int, year_to: int, month_from: int, month_to: int, 
                            hallinnonala: str = '28') -> Optional[pd.DataFrame]:
         """
-        Get data for a specific time period.
-        
-        Args:
-            year_from (int): Start year
-            year_to (int): End year
-            month_from (int): Start month
-            month_to (int): End month
-            hallinnonala (str): Administrative branch code (default: '28' - Ministry of Defense)
-            
-        Returns:
-            Optional[pd.DataFrame]: DataFrame containing the data or None if request failed
+        Dummy method that doesn't make actual API calls.
         """
-        params = {
-            'yearFrom': year_from,
-            'yearTo': year_to,
-            'monthFrom': month_from,
-            'monthTo': month_to,
-            'hallinnonala': hallinnonala
-        }
-        
-        return self.make_request(params)
+        logger.warning(f"API DISABLED: get_data_for_period() called for {year_from}-{month_from} to {year_to}-{month_to} but API is disabled")
+        return None
 
     def get_data_by_year(self, year: int, hallinnonala: str = '28') -> Optional[pd.DataFrame]:
         """
-        Get data for a specific year.
-        
-        Args:
-            year (int): Year to fetch
-            hallinnonala (str): Administrative branch code (default: '28' - Ministry of Defense)
-            
-        Returns:
-            Optional[pd.DataFrame]: DataFrame containing the data or None if request failed
+        Dummy method that doesn't make actual API calls.
         """
-        return self.get_data_for_period(year, year, 1, 12, hallinnonala)
+        logger.warning(f"API DISABLED: get_data_by_year() called for {year} but API is disabled")
+        return None

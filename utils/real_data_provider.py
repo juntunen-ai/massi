@@ -1,18 +1,12 @@
-"""
-Real data provider for connecting to BigQuery.
-"""
-
-import pandas as pd
 import logging
+import pandas as pd
 from google.cloud import bigquery
 from google.api_core.exceptions import GoogleAPIError
-from typing import Optional, Dict, Any
+from typing import Optional
 
 logger = logging.getLogger(__name__)
 
 class RealDataProvider:
-    """Provides real financial data from BigQuery."""
-    
     def __init__(self, project_id: str = "massi-financial-analysis", 
                  dataset_id: str = "finnish_finance_data", 
                  table_id: str = "budget_transactions"):
@@ -22,7 +16,36 @@ class RealDataProvider:
         self.table_id = table_id
         self.client = bigquery.Client(project=project_id)
         self.table_ref = f"{project_id}.{dataset_id}.{table_id}"
-    
+        # Log startup with note about API being disabled
+        logger.info("Initialized RealDataProvider - API access is disabled, using pre-loaded BigQuery data")
+
+    def _prepare_sql_query(self, query: str) -> str:
+        """
+        Prepare a SQL query by properly handling Finnish characters.
+        
+        Args:
+            query (str): Original SQL query
+            
+        Returns:
+            str: Prepared SQL query
+        """
+        # List of column names with Finnish characters
+        finnish_columns = [
+            "Nettokertymä",
+            "Lisätalousarvio",
+            "Käytettävissä",
+            "Kirjanpitoyksikkö",
+            "Loppusaldo"
+        ]
+        
+        # Add backticks to Finnish column names
+        for col in finnish_columns:
+            # Only replace if not already backticked
+            if f"`{col}`" not in query and col in query:
+                query = query.replace(col, f"`{col}`")
+        
+        return query
+
     def execute_query(self, query: str) -> Optional[pd.DataFrame]:
         """
         Execute a SQL query and return results.
@@ -34,6 +57,9 @@ class RealDataProvider:
             Optional[pd.DataFrame]: Results DataFrame or None if query fails
         """
         try:
+            # Prepare the query by handling Finnish characters
+            query = self._prepare_sql_query(query)
+            
             logger.info(f"Executing query: {query[:100]}...")
             
             # Configure query job
@@ -53,89 +79,41 @@ class RealDataProvider:
             
         except GoogleAPIError as e:
             logger.error(f"BigQuery API error: {str(e)}")
+            logger.error(f"Query that failed: {query}")
             return None
         except Exception as e:
             logger.error(f"Error executing query: {str(e)}")
+            logger.error(f"Query that failed: {query}")
             return None
-    
-    def generate_example_data(self, query_type: str) -> pd.DataFrame:
+
+    def get_schema(self) -> list:
+        """Get the schema of the BigQuery table."""
+        query = f"""
+        SELECT column_name, data_type
+        FROM `{self.project_id}.{self.dataset_id}.INFORMATION_SCHEMA.COLUMNS`
+        WHERE table_name = '{self.table_id}'
         """
-        Generate example data for specific query types.
-        
-        Args:
-            query_type (str): Type of query
-            
-        Returns:
-            pd.DataFrame: Example data
-        """
-        queries = {
-            'military_budget_2022': """
-                SELECT 
-                  SUM(`Alkuperäinen_talousarvio`) as original_budget,
-                  SUM(`Voimassaoleva_talousarvio`) as current_budget
-                FROM 
-                  `{table_ref}`
-                WHERE 
-                  Vuosi = 2022 
-                  AND Ha_Tunnus = 26
-            """,
-            'defense_quarterly_2022_2023': """
-                SELECT 
-                  Vuosi as year,
-                  CEIL(Kk/3) as quarter,
-                  SUM(`Voimassaoleva_talousarvio`) as budget,
-                  SUM(`Nettokertymä`) as spending
-                FROM 
-                  `{table_ref}`
-                WHERE 
-                  Vuosi IN (2022, 2023)
-                  AND Ha_Tunnus = 26
-                GROUP BY 
-                  year, quarter
-                ORDER BY 
-                  year, quarter
-            """,
-            'education_budget_trend': """
-                SELECT 
-                  Vuosi as year,
-                  SUM(`Alkuperäinen_talousarvio`) as original_budget,
-                  SUM(`Voimassaoleva_talousarvio`) as current_budget,
-                  SUM(`Nettokertymä`) as spending
-                FROM 
-                  `{table_ref}`
-                WHERE 
-                  Vuosi BETWEEN 2020 AND 2023
-                  AND Ha_Tunnus = 29
-                GROUP BY 
-                  year
-                ORDER BY 
-                  year
-            """,
-            'top_ministries_2023': """
-                SELECT 
-                  Hallinnonala as ministry,
-                  SUM(`Nettokertymä`) as spending
-                FROM 
-                  `{table_ref}`
-                WHERE 
-                  Vuosi = 2023
-                GROUP BY 
-                  ministry
-                ORDER BY 
-                  spending DESC
-                LIMIT 5
-            """
-        }
-        
-        if query_type in queries:
-            query = queries[query_type].format(table_ref=self.table_ref)
+        try:
             result = self.execute_query(query)
-            return result
-        else:
-            return pd.DataFrame()
-    
+            if result is not None and not result.empty:
+                return [{"name": row["column_name"], "type": row["data_type"]} 
+                        for _, row in result.iterrows()]
+            # Fallback to hardcoded schema if query fails
+            return [
+                {"name": "Vuosi", "type": "INTEGER"},
+                {"name": "Kk", "type": "INTEGER"},
+                {"name": "Ha_Tunnus", "type": "INTEGER"},
+                {"name": "Hallinnonala", "type": "STRING"},
+                {"name": "Alkuperäinen_talousarvio", "type": "FLOAT"},
+                {"name": "Voimassaoleva_talousarvio", "type": "FLOAT"},
+                {"name": "Nettokertymä", "type": "FLOAT"}
+            ]
+        except Exception as e:
+            logger.error(f"Error getting schema: {str(e)}")
+            return []
+
     def get_available_years(self) -> list:
-        """Get available years in the data."""
+        """Get available years in the data from BigQuery (not from API)."""
         query = f"""
         SELECT DISTINCT Vuosi 
         FROM `{self.table_ref}`
@@ -144,4 +122,4 @@ class RealDataProvider:
         result = self.execute_query(query)
         if result is not None and not result.empty:
             return result['Vuosi'].tolist()
-        return []
+        return [2020, 2021, 2022, 2023, 2024]  # Fallback to default years if query fails

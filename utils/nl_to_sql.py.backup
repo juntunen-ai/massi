@@ -1,0 +1,284 @@
+import logging
+from typing import Dict, Any, Optional, List, Tuple
+import re
+from google.cloud import aiplatform
+from google.api_core.exceptions import GoogleAPIError
+
+logger = logging.getLogger(__name__)
+
+class NLToSQLConverter:
+    """Class for converting natural language queries to SQL for Finnish financial data."""
+    
+    def __init__(self, project_id: str, location: str = "europe-west4", model_name: str = "gemini-1.5-pro"):
+        """
+        Initialize the NL to SQL converter.
+        
+        Args:
+            project_id (str): Google Cloud project ID
+            location (str): Vertex AI location
+            model_name (str): Vertex AI model name
+        """
+        self.project_id = project_id
+        self.location = location
+        self.model_name = model_name
+        self.table_name = None
+        self.schema = None
+        
+    def set_table_info(self, table_name: str, schema: List[Dict[str, Any]]):
+        """
+        Set the table information for SQL generation.
+        
+        Args:
+            table_name (str): Fully-qualified table name (project.dataset.table)
+            schema (List[Dict[str, Any]]): Table schema
+        """
+        self.table_name = table_name
+        self.schema = schema
+    
+    def generate_sql(self, natural_language_query: str) -> Tuple[Optional[str], str]:
+        """
+        Generate SQL from a natural language query.
+        
+        Args:
+            natural_language_query (str): Natural language query
+            
+        Returns:
+            Tuple[Optional[str], str]: Tuple containing the generated SQL query and explanation
+        """
+        if not self.table_name or not self.schema:
+            return None, "Table information not set. Call set_table_info() first."
+        
+        # Build the prompt for the LLM
+        prompt = self._build_prompt(natural_language_query)
+        
+        try:
+            # Initialize Vertex AI
+            aiplatform.init(project=self.project_id, location=self.location)
+            
+            # Get the model
+            model = aiplatform.Vertex(model_name=self.model_name)
+            
+            # Generate the SQL
+            response = model.predict(prompt=prompt)
+            
+            # Extract SQL and explanation from response
+            sql_query, explanation = self._extract_sql_and_explanation(response.text)
+            
+            # Clean and validate the SQL
+            if sql_query:
+                sql_query = self._clean_sql(sql_query)
+            
+            return sql_query, explanation
+            
+        except GoogleAPIError as e:
+            logger.error(f"Google API error generating SQL: {str(e)}")
+            return None, f"Error generating SQL: {str(e)}"
+        except Exception as e:
+            logger.error(f"Unexpected error generating SQL: {str(e)}")
+            return None, f"Unexpected error: {str(e)}"
+    
+    def _build_prompt(self, natural_language_query: str) -> str:
+        """
+        Build the prompt for the LLM to generate SQL.
+        
+        Args:
+            natural_language_query (str): Natural language query
+            
+        Returns:
+            str: Prompt for the LLM
+        """
+        # Create a schema description for the LLM
+        schema_desc = "\n".join([
+            f"- {field['name']} ({field['type']}): {field.get('description', '')}"
+            for field in self.schema
+        ])
+        
+        # Build a prompt with examples
+        prompt = f"""
+        You are an expert SQL generator for a financial analysis system. 
+        Your task is to convert natural language questions about Finnish government finances into BigQuery SQL queries.
+
+        Here is the schema of the financial data table:
+        Table: `{self.table_name}`
+        
+        Fields:
+        {schema_desc}
+        
+        Key information about the data:
+        - The data contains Finnish government budget and accounting information.
+        - Vuosi is the year and Kk is the month.
+        - Ha_Tunnus is the administrative branch code (e.g., 28 = Ministry of Defense).
+        - Financial values include budget allocations, balances, and net amounts.
+        - PaaluokkaOsasto, Luku, and Momentti represent the budget structure hierarchy.
+        
+        Here are some example SQL queries:
+        
+        Example 1:
+        Question: What was the military budget for 2022?
+        SQL: 
+        ```sql
+        SELECT 
+          SUM(Alkuperäinen_talousarvio) as original_budget,
+          SUM(Voimassaoleva_talousarvio) as current_budget
+        FROM 
+          `{self.table_name}`
+        WHERE 
+          Vuosi = 2022 
+          AND Ha_Tunnus = 28
+        ```
+        
+        Example 2:
+        Question: Compare defense spending between 2022 and 2023 by quarter
+        SQL:
+        ```sql
+        SELECT 
+          Vuosi as year,
+          CEIL(Kk/3) as quarter,
+          SUM(Voimassaoleva_talousarvio) as budget,
+          SUM(Nettokertymä) as spending
+        FROM 
+          `{self.table_name}`
+        WHERE 
+          Vuosi IN (2022, 2023)
+          AND Ha_Tunnus = 28
+        GROUP BY 
+          year, quarter
+        ORDER BY 
+          year, quarter
+        ```
+        
+        Example 3:
+        Question: What has been the development of military budget during 2022-2024?
+        SQL:
+        ```sql
+        SELECT 
+          Vuosi as year,
+          SUM(Alkuperäinen_talousarvio) as original_budget,
+          SUM(Voimassaoleva_talousarvio) as current_budget,
+          SUM(Nettokertymä) as spending
+        FROM 
+          `{self.table_name}`
+        WHERE 
+          Vuosi BETWEEN 2022 AND 2024
+          AND Ha_Tunnus = 28
+        GROUP BY 
+          year
+        ORDER BY 
+          year
+        ```
+        
+        Now, please convert the following question to a BigQuery SQL query:
+        
+        Question: {natural_language_query}
+        
+        Please provide the SQL query and a brief explanation of how it answers the question.
+        Format your response as:
+        
+        SQL:
+        ```sql
+        -- Your SQL query here
+        ```
+        
+        Explanation:
+        A brief explanation of how this SQL query addresses the question.
+        """
+        
+        return prompt
+    
+    def _extract_sql_and_explanation(self, response_text: str) -> Tuple[Optional[str], str]:
+        """
+        Extract SQL and explanation from the LLM response.
+        
+        Args:
+            response_text (str): LLM response text
+            
+        Returns:
+            Tuple[Optional[str], str]: SQL query and explanation
+        """
+        # Extract SQL between ```sql and ``` markers
+        sql_match = re.search(r"```sql\s+(.*?)\s+```", response_text, re.DOTALL)
+        sql_query = sql_match.group(1).strip() if sql_match else None
+        
+        # Extract explanation
+        explanation_match = re.search(r"Explanation:\s+(.*?)(?:\n\n|$)", response_text, re.DOTALL)
+        explanation = explanation_match.group(1).strip() if explanation_match else "No explanation provided."
+        
+        return sql_query, explanation
+    
+    def _clean_sql(self, sql_query: str) -> str:
+        """
+        Clean and validate the SQL query.
+        
+        Args:
+            sql_query (str): SQL query
+            
+        Returns:
+            str: Cleaned SQL query
+        """
+        # Ensure table name is properly backticked for BigQuery
+        sql_query = sql_query.replace("`" + self.table_name + "`", self.table_name)
+        
+        # Ensure Finnish characters are handled properly
+        sql_query = self._handle_finnish_characters(sql_query)
+        
+        return sql_query
+    
+    def _handle_finnish_characters(self, sql_query: str) -> str:
+        """
+        Ensure Finnish characters (ä, ö) are properly handled in column names.
+        
+        Args:
+            sql_query (str): SQL query
+            
+        Returns:
+            str: SQL query with properly handled Finnish characters
+        """
+        # List of columns with Finnish characters
+        finnish_columns = [
+            "Käytettävissä",
+            "Lisätalousarvio",
+            "Nettokertymä",
+            "Nettokertymä_ko_vuodelta",
+            "Kirjanpitoyksikkö",
+            "Loppusaldo"
+        ]
+        
+        # Make sure these columns are properly backticked
+        for col in finnish_columns:
+            # Replace instances not already backticked
+            sql_query = re.sub(r'(?<![`\w])' + col + r'(?![`\w])', '`' + col + '`', sql_query)
+        
+        return sql_query
+
+class EnhancedNLToSQLConverter:
+    def __init__(self, project_id: str, location: str = "europe-north1"):
+        self.project_id = project_id
+        self.location = location
+        self.model_name = "gemini-2.5-pro-preview-03-25"
+
+        # Leverage structured output feature
+        self.output_schema = {
+            "type": "object",
+            "properties": {
+                "sql": {"type": "string"},
+                "explanation": {"type": "string"},
+                "confidence": {"type": "number"},
+                "assumptions": {"type": "array", "items": {"type": "string"}}
+            },
+            "required": ["sql", "explanation"]
+        }
+
+    def generate_sql(self, natural_language_query: str) -> Dict[str, Any]:
+        """Generate SQL using structured output."""
+        model = aiplatform.GenerativeModel(self.model_name)
+
+        # Use structured output feature
+        response = model.generate_content(
+            prompt=self._build_prompt(natural_language_query),
+            generation_config={
+                "response_mime_type": "application/json",
+                "response_schema": self.output_schema
+            }
+        )
+
+        return response.text

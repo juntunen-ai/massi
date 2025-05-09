@@ -4,6 +4,7 @@ These templates can be used by the NL-to-SQL converter to generate more consiste
 and optimized queries for common question patterns.
 """
 
+# Updated SQL templates to use f-string compatible format
 TEMPLATES = {
     # Template for aggregating budget values for a specific year and administrative branch
     "yearly_budget": """
@@ -12,7 +13,7 @@ TEMPLATES = {
           SUM(Voimassaoleva_talousarvio) as current_budget,
           SUM(Nettokertymä) as net_accumulation
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi = {year} 
           AND Ha_Tunnus = {hallinnonala}
@@ -26,7 +27,7 @@ TEMPLATES = {
           SUM(Voimassaoleva_talousarvio) as current_budget,
           SUM(Nettokertymä) as net_accumulation
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi BETWEEN {start_year} AND {end_year}
           {hallinnonala_filter}
@@ -44,7 +45,7 @@ TEMPLATES = {
           SUM(Voimassaoleva_talousarvio) as budget,
           SUM(Nettokertymä) as spending
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi BETWEEN {start_year} AND {end_year}
           {hallinnonala_filter}
@@ -62,7 +63,7 @@ TEMPLATES = {
           SUM(Voimassaoleva_talousarvio) as budget,
           SUM(Nettokertymä) as spending
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi = {year}
           {hallinnonala_filter}
@@ -78,7 +79,7 @@ TEMPLATES = {
           PaaluokkaOsasto_sNimi as category,
           SUM(Nettokertymä) as spending
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi = {year}
           {hallinnonala_filter}
@@ -96,7 +97,7 @@ TEMPLATES = {
             Vuosi as year,
             SUM(Nettokertymä) as spending
           FROM 
-            `{table_name}`
+            {table_name}
           WHERE 
             Vuosi BETWEEN {start_year} AND {end_year}
             {hallinnonala_filter}
@@ -123,7 +124,7 @@ TEMPLATES = {
           SUM(Nettokertymä) as actual_spending,
           SUM(Nettokertymä) / NULLIF(SUM(Voimassaoleva_talousarvio), 0) * 100 as budget_utilization_percentage
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi BETWEEN {start_year} AND {end_year}
           {hallinnonala_filter}
@@ -139,7 +140,7 @@ TEMPLATES = {
           Hallinnonala as administrative_branch,
           SUM(Nettokertymä) as spending
         FROM 
-          `{table_name}`
+          {table_name}
         WHERE 
           Vuosi = {year}
         GROUP BY 
@@ -173,8 +174,12 @@ def format_template(template_name, **kwargs):
     Returns:
         str: Formatted template or None if template not found
     """
-    template = get_template(template_name)
+    template = TEMPLATES.get(template_name)
     if not template:
         return None
-        
+    
+    # Ensure table_name is properly backticked if not already
+    if 'table_name' in kwargs and not kwargs['table_name'].startswith('`'):
+        kwargs['table_name'] = f"`{kwargs['table_name']}`"
+    
     return template.format(**kwargs)

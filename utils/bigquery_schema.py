@@ -7,12 +7,13 @@ def get_bigquery_schema():
         # Date fields
         bigquery.SchemaField("Vuosi", "INTEGER", description="Year"),
         bigquery.SchemaField("Kk", "INTEGER", description="Month"),
+        # YearMonth field for partitioning
         bigquery.SchemaField("YearMonth", "DATE", description="Year and month as DATE for partitioning"),
         
         # Administrative structure
-        bigquery.SchemaField("Ha_Tunnus", "INTEGER", description="Administrative branch code"),
+        bigquery.SchemaField("Ha_Tunnus", "STRING", description="Administrative branch code"),
         bigquery.SchemaField("Hallinnonala", "STRING", description="Administrative branch name"),
-        bigquery.SchemaField("Tv_Tunnus", "INTEGER", description="Accounting unit code"),
+        bigquery.SchemaField("Tv_Tunnus", "STRING", description="Accounting unit code"),
         bigquery.SchemaField("Kirjanpitoyksikkö", "STRING", description="Accounting unit name"),
         
         # Budget structure

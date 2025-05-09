@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+from utils.config import PROJECT_ID, DATASET_ID, TABLE_ID
 from google.cloud import bigquery, secretmanager
 import json
 import google.auth
@@ -8,13 +8,10 @@ import logging
 import sys
 from utils.bigquery_loader import BigQueryLoader
 
-# Load environment variables
-load_dotenv()
-
 # Project details
-project_id = os.getenv('PROJECT_ID')
-dataset_id = os.getenv('DATASET_ID')
-table_id = os.getenv('TABLE_ID')
+project_id = PROJECT_ID
+dataset_id = DATASET_ID
+table_id = TABLE_ID
 secret_id = os.getenv('SECRET_ID', 'massi-service-account-key')
 
 # Set up logging

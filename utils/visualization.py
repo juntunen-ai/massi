@@ -37,47 +37,109 @@ class FinancialDataVisualizer:
     def detect_visualization_type(self, df: pd.DataFrame) -> str:
         """
         Automatically detect the appropriate visualization type based on the data.
-        
+
         Args:
             df (pd.DataFrame): Data to visualize
-            
+
         Returns:
             str: Visualization type ('line', 'bar', 'pie', etc.)
         """
         # Get column names and types
         columns = list(df.columns)
         numeric_columns = df.select_dtypes(include=['number']).columns.tolist()
-        
+
         # Check for time series data
         time_columns = [col for col in columns if col.lower() in ['year', 'vuosi', 'month', 'kk', 'quarter']]
-        
+
+        # Check for categorical data
+        category_columns = [col for col in columns if col.lower() in ['hallinnonala', 'ministry', 'administrative_branch', 'paaluokka', 'momentti', 'luku']]
+
         # Logic for visualization type selection
         if len(df) == 1 and len(numeric_columns) >= 1:
-            # Single row with numeric values - use a bar chart
+            # Single row with numeric values - use a single value display
             return 'single_value'
+        elif len(df) == 1 and len(numeric_columns) > 1:
+            # Single row with multiple values - use bar for comparison
+            return 'bar'
         elif len(time_columns) >= 1 and len(numeric_columns) >= 1:
-            # Time series data - use a line chart
-            if len(numeric_columns) > 1:
-                return 'time_multi_line'
+            # Time series data - check for multiple numeric values
+            if len(df) > 1:  # Need at least 2 points for a line chart
+                if len(numeric_columns) > 2:  # Too many lines can be confusing
+                    return 'time_bar'  # Use bar chart instead
+                elif len(numeric_columns) > 1:
+                    return 'time_multi_line'
+                else:
+                    return 'time_line'
             else:
-                return 'time_line'
-        elif len(df) <= 10 and len(numeric_columns) >= 1:
-            # Small number of categories - could use a pie chart
-            return 'pie'
+                return 'single_value'
+        elif category_columns and len(numeric_columns) >= 1:
+            # Categorical data with numeric values
+            if len(df) <= 8:  # Good for pie charts
+                return 'pie'
+            else:
+                return 'bar'
         elif len(df) > 10 and len(numeric_columns) >= 1:
-            # Larger number of categories - use a bar chart
+            # Large datasets
             if any(col.lower() in ['year', 'vuosi'] for col in columns):
                 return 'time_bar'
             else:
                 return 'bar'
+        elif len(df) <= 10 and len(numeric_columns) >= 1:
+            # Small datasets
+            return 'bar'
         else:
-            # Default to a table if we can't determine a good visualization
+            # Default to table when no clear pattern
             return 'table'
+
+    def _create_visualization_title(self, df: pd.DataFrame, viz_type: str, query: str) -> str:
+        """
+        Create a more descriptive title based on the data and query.
+
+        Args:
+            df (pd.DataFrame): Data to visualize
+            viz_type (str): Visualization type
+            query (str): Original query
+
+        Returns:
+            str: Descriptive title
+        """
+        # Extract key information from data
+        time_cols = [col for col in df.columns if col.lower() in ['year', 'vuosi', 'month', 'kk', 'quarter']]
+        ministry_cols = [col for col in df.columns if col.lower() in ['hallinnonala', 'ministry', 'administrative_branch']]
+
+        title_parts = []
+
+        # Add query focus
+        if 'budget' in query.lower():
+            title_parts.append('Budget Analysis')
+        elif 'spending' in query.lower():
+            title_parts.append('Spending Analysis')
+        else:
+            title_parts.append(query.capitalize())
+
+        # Add time period info
+        if time_cols and len(df) > 0:
+            time_col = time_cols[0]
+            min_year = df[time_col].min()
+            max_year = df[time_col].max()
+            if min_year == max_year:
+                title_parts.append(f"({min_year})")
+            else:
+                title_parts.append(f"({min_year}-{max_year})")
+
+        # Add ministry info if available
+        if ministry_cols and len(df) < 5:  # Don't add if too many ministries
+            ministry_col = ministry_cols[0]
+            ministries = df[ministry_col].unique()
+            if len(ministries) == 1:
+                title_parts.append(f"- {ministries[0]}")
+
+        return ' '.join(title_parts)
     
     def create_visualization(self, df: pd.DataFrame, title: str = '', 
                             viz_type: Optional[str] = None) -> go.Figure:
         """
-        Create a visualization based on the data.
+        Create a visualization based on the data with error handling.
         
         Args:
             df (pd.DataFrame): Data to visualize
@@ -87,30 +149,60 @@ class FinancialDataVisualizer:
         Returns:
             go.Figure: Plotly figure
         """
-        # Auto-detect visualization type if not specified
-        if not viz_type:
-            viz_type = self.detect_visualization_type(df)
+        try:
+            # Validate input
+            if df is None or df.empty:
+                return self._create_error_figure("No data available to visualize")
+            
+            # Auto-detect visualization type if not specified
+            if not viz_type:
+                viz_type = self.detect_visualization_type(df)
+            
+            # Translate column names for better display
+            df_display = df.copy()
+            df_display.columns = [self.label_translations.get(col, col) for col in df.columns]
+            
+            # Create appropriate visualization based on type
+            if viz_type == 'single_value':
+                return self._create_single_value_viz(df_display, title)
+            elif viz_type == 'time_line':
+                return self._create_time_line_viz(df_display, title)
+            elif viz_type == 'time_multi_line':
+                return self._create_time_multi_line_viz(df_display, title)
+            elif viz_type == 'pie':
+                return self._create_pie_viz(df_display, title)
+            elif viz_type == 'bar':
+                return self._create_bar_viz(df_display, title)
+            elif viz_type == 'time_bar':
+                return self._create_time_bar_viz(df_display, title)
+            else:
+                # Default to table
+                return self._create_table_viz(df_display, title)
         
-        # Translate column names for better display
-        df_display = df.copy()
-        df_display.columns = [self.label_translations.get(col, col) for col in df.columns]
+        except Exception as e:
+            logger.error(f"Error creating visualization: {str(e)}")
+            return self._create_error_figure(f"Error creating visualization: {str(e)}")
+
+    def _create_error_figure(self, error_message: str) -> go.Figure:
+        """Create an error visualization."""
+        fig = go.Figure()
         
-        # Create appropriate visualization based on type
-        if viz_type == 'single_value':
-            return self._create_single_value_viz(df_display, title)
-        elif viz_type == 'time_line':
-            return self._create_time_line_viz(df_display, title)
-        elif viz_type == 'time_multi_line':
-            return self._create_time_multi_line_viz(df_display, title)
-        elif viz_type == 'pie':
-            return self._create_pie_viz(df_display, title)
-        elif viz_type == 'bar':
-            return self._create_bar_viz(df_display, title)
-        elif viz_type == 'time_bar':
-            return self._create_time_bar_viz(df_display, title)
-        else:
-            # Default to table
-            return self._create_table_viz(df_display, title)
+        fig.add_annotation(
+            text=error_message,
+            xref="paper", yref="paper",
+            x=0.5, y=0.5,
+            showarrow=False,
+            font=dict(size=20, color="red"),
+            align="center"
+        )
+        
+        fig.update_layout(
+            title="Visualization Error",
+            height=300,
+            margin=dict(l=20, r=20, t=40, b=20)
+        )
+        
+        return fig
     
     def _create_single_value_viz(self, df: pd.DataFrame, title: str) -> go.Figure:
         """Create a visualization for a single value."""
@@ -140,36 +232,47 @@ class FinancialDataVisualizer:
         return fig
     
     def _create_time_line_viz(self, df: pd.DataFrame, title: str) -> go.Figure:
-        """Create a line chart for time series data with a single metric."""
+        """Create a line chart for time series data with error handling."""
+        # Ensure column names are compatible with BigQuery
+        df.columns = [col.replace(' ', '_').lower() for col in df.columns]
+
         # Identify the time column and numeric column
-        time_cols = [col for col in df.columns if col.lower() in 
-                    ['year', 'vuosi', 'month', 'kk', 'quarter']]
+        time_cols = [col for col in df.columns if col in ['year', 'vuosi', 'month', 'kk', 'quarter']]
         numeric_cols = df.select_dtypes(include=['number']).columns.tolist()
-        
+
         if not time_cols or not numeric_cols:
-            return self._create_table_viz(df, title)
-        
+            return self._create_error_figure("No time series data found")
+
         time_col = time_cols[0]
         value_col = numeric_cols[0]
-        
-        # Create line chart
-        fig = px.line(
-            df, 
-            x=time_col, 
-            y=value_col,
-            title=title,
-            markers=True,
-            color_discrete_sequence=[self.color_scheme[5]]
-        )
-        
-        # Format the layout
-        fig.update_layout(
-            xaxis_title=time_col,
-            yaxis_title=value_col,
-            height=400
-        )
-        
-        return fig
+
+        # Check if we have enough data points
+        if len(df) < 2:
+            return self._create_single_value_viz(df, title)
+
+        try:
+            # Create line chart
+            fig = px.line(
+                df, 
+                x=time_col, 
+                y=value_col,
+                title=title,
+                markers=True,
+                color_discrete_sequence=[self.color_scheme[5]]
+            )
+
+            # Format the layout
+            fig.update_layout(
+                xaxis_title=time_col,
+                yaxis_title=value_col,
+                height=400
+            )
+
+            return fig
+
+        except Exception as e:
+            logger.error(f"Error creating line chart: {str(e)}")
+            return self._create_error_figure(f"Error creating line chart: {str(e)}")
     
     def _create_time_multi_line_viz(self, df: pd.DataFrame, title: str) -> go.Figure:
         """Create a line chart for time series data with multiple metrics."""

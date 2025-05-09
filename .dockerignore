@@ -1,0 +1,62 @@
+# .dockerignore
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment folders
+.venv/
+venv/
+env/
+ENV/
+virtualenv/
+
+# IDE and editor directories/files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Secrets and configuration files
+*.json
+.env
+secrets/
+*.pem
+credentials*
+
+# Log files
+*.log
+
+# Local Docker files
+docker-compose.yml
+docker-compose.*.yml
+
+# Data files (NEW)
+*.csv
+
+# Test files and directories (NEW)
+tests/
+test/
+test_*.py
+*_test.py
+
+# Project-specific (Examples - customize!)
+# docs/
+# data/  (If you have a data dir besides CSVs)
+# notebooks/
+# *.ipynb

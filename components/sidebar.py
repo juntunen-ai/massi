@@ -6,8 +6,9 @@ import streamlit as st
 from typing import Dict, Any, List, Optional, Callable
 import logging
 from datetime import datetime
+from utils.logger import setup_logger
 
-logger = logging.getLogger(__name__)
+logger = setup_logger(__name__)
 
 class Sidebar:
     """Component for the sidebar with filters and settings."""
@@ -22,6 +23,8 @@ class Sidebar:
         """
         self.available_years = available_years or []
         self.on_filter_change = on_filter_change
+        self.logger = setup_logger(__name__)
+        self.logger.info("Sidebar component initialized")
         
         # Administrative branches mapping (common ones)
         self.admin_branches = {
@@ -135,6 +138,12 @@ class Sidebar:
             viz_type (str): Selected visualization type
             show_sql (bool): Whether to show SQL query
         """
+        self.logger.info(f"Applying filters", extra={
+            'aggregation': aggregation,
+            'viz_type': viz_type,
+            'show_sql': show_sql
+        })
+        
         # Map dropdown values to expected filter values
         viz_mapping = {
             "Auto-detect": "auto",

@@ -5,6 +5,7 @@ import time
 import pandas as pd
 from utils.api_client import TutkihallintoaAPI
 from utils.bigquery_loader import BigQueryLoader
+from utils.auth import init_google_auth
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, 
@@ -83,9 +84,9 @@ def load_financial_data():
                     logger.info(f"Successfully loaded {len(df)} rows for branch {hallinnonala}, {current_year}-{current_month:02d} to BigQuery (job_id: {job_id})")
                     total_records_loaded += len(df)
                 else:
-                    logger.error(f"Failed to load data for branch {hallinnonala}, {current_year}-{current_month:02d} to BigQuery")
+                    logger.error(f"Failed to load data for branch {hallinnonala}, {current_year}-{current-month:02d} to BigQuery")
             else:
-                logger.warning(f"No data available for branch {hallinnonala}, {current_year}-{current_month:02d}")
+                logger.warning(f"No data available for branch {hallinnonala}, {current_year}-{current-month:02d}")
             
             # Move to the next month
             if current_month == 12:
@@ -100,10 +101,8 @@ def load_financial_data():
     logger.info(f"Total records loaded into BigQuery: {total_records_loaded}")
 
 if __name__ == "__main__":
-    # Unset credentials env var to use application default credentials
-    if 'GOOGLE_APPLICATION_CREDENTIALS' in os.environ:
-        logger.info("Unsetting GOOGLE_APPLICATION_CREDENTIALS to use application default credentials")
-        del os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+    # Initialize Google authentication
+    init_google_auth()
     
     logger.info("Starting financial data load process for Apr 2022 to Apr 2024...")
     start_time = datetime.now()

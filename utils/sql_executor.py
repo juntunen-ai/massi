@@ -7,8 +7,16 @@ import pandas as pd
 from google.cloud import bigquery
 from google.api_core.exceptions import GoogleAPIError
 from typing import Optional, Dict, Any, Union
+from utils.secrets_manager import secrets_manager
+import google.generativeai as genai
 
 logger = logging.getLogger(__name__)
+
+# Use centralized secrets manager for API key retrieval
+api_key = secrets_manager.get_api_key_ai_studio()
+if not hasattr(genai, '_configured'):
+    genai.configure(api_key=api_key)
+    genai._configured = True
 
 class SQLExecutor:
     """Class for executing SQL queries against BigQuery."""
@@ -35,6 +43,9 @@ class SQLExecutor:
             Optional[pd.DataFrame]: Query results as DataFrame or None if query failed
         """
         try:
+            # Sanitize SQL for Finnish characters
+            sql_query = self._sanitize_sql(sql_query)
+            
             logger.info(f"Executing SQL query: {sql_query}")
             
             # Configure query job
@@ -159,3 +170,30 @@ class SQLExecutor:
             return 'FLOAT64'
         else:
             return 'STRING'  # Default to string
+
+    def _sanitize_sql(self, sql_query: str) -> str:
+        """
+        Sanitize SQL query for Finnish characters and type mismatches.
+        
+        Args:
+            sql_query (str): SQL query
+            
+        Returns:
+            str: Sanitized SQL query
+        """
+        # Ensure Finnish columns are properly escaped
+        finnish_columns = {
+            'Alkuperäinen_talousarvio': '`Alkuperäinen_talousarvio`',
+            'Voimassaoleva_talousarvio': '`Voimassaoleva_talousarvio`',
+            'Nettokertymä': '`Nettokertymä`',
+            'Käytettävissä': '`Käytettävissä`',
+            'Loppusaldo': '`Loppusaldo`'
+        }
+        
+        for col, quoted_col in finnish_columns.items():
+            # Replace unquoted references
+            sql_query = sql_query.replace(f' {col} ', f' {quoted_col} ')
+            sql_query = sql_query.replace(f'.{col} ', f'.{quoted_col} ')
+            sql_query = sql_query.replace(f'({col})', f'({quoted_col})')
+        
+        return sql_query

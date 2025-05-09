@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# data_pipeline.py - Extract and load financial data to BigQuery
+
 import os
 import logging
 import time
@@ -11,28 +14,17 @@ import requests
 import io
 from typing import Dict, Any, Optional, List
 import sys
+from utils.auth import init_google_auth
+from utils.logging_config import configure_logging
 
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("data_pipeline.log"),
-        logging.StreamHandler(sys.stdout)  # Explicitly add stdout handler
-    ]
-)
-logger = logging.getLogger(__name__)
-
-# Enhance logging to include more verbose details
-logging.getLogger().setLevel(logging.DEBUG)  # Set root logger to DEBUG level
+# Configure centralized logging
+logger = configure_logging()
 
 # Load environment variables
 load_dotenv()
 
 # Clear out any problematic credentials env var
-if 'GOOGLE_APPLICATION_CREDENTIALS' in os.environ:
-    logger.info("Unsetting GOOGLE_APPLICATION_CREDENTIALS to use application default credentials")
-    del os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+init_google_auth()
 
 # Configuration
 PROJECT_ID = os.getenv('PROJECT_ID')
@@ -135,6 +127,55 @@ class DataPipeline:
             logger.error(f"API request failed: {str(e)}")
             return None
     
+    def extract_quarter_data(self, year: int, quarter: int, ha_tunnus: str = '28') -> Optional[pd.DataFrame]:
+        """
+        Extract data for a specific quarter from the API.
+
+        Args:
+            year (int): Year to extract
+            quarter (int): Quarter (1-4)
+            ha_tunnus (str): Administrative branch code
+
+        Returns:
+            Optional[pd.DataFrame]: Extracted data as DataFrame or None if failed
+        """
+        self._respect_rate_limit()
+
+        # Calculate start and end months for the quarter
+        start_month = (quarter - 1) * 3 + 1
+        end_month = quarter * 3
+
+        params = {
+            'yearFrom': year,
+            'yearTo': year,
+            'monthFrom': start_month,
+            'monthTo': end_month,
+            'hallinnonala': ha_tunnus
+        }
+
+        logger.info(f"Extracting data for {year} Q{quarter}, ha_tunnus={ha_tunnus}")
+        logger.debug(f"API request parameters: {params}")
+
+        try:
+            response = self.session.get(API_BASE_URL, params=params)
+
+            if not response.ok:
+                logger.error(f"API request failed with status {response.status_code}: {response.text[:200]}")
+                return None
+
+            # Parse CSV data
+            try:
+                df = pd.read_csv(io.StringIO(response.text), sep=',')
+                logger.info(f"Successfully extracted {len(df)} rows for {year} Q{quarter}")
+                return df
+            except Exception as e:
+                logger.error(f"Failed to parse CSV response: {str(e)}")
+                return None
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"API request failed: {str(e)}")
+            return None
+
     def load_to_bigquery(self, df: pd.DataFrame) -> bool:
         """
         Load DataFrame to BigQuery.
@@ -207,24 +248,58 @@ class DataPipeline:
             self._save_progress()
             return False
 
-    def process_range(self, start_year: int, end_year: int, start_month: int, end_month: int, ha_tunnus: str = '28'):
+    def process_quarter(self, year: int, quarter: int, ha_tunnus: str = '28') -> bool:
         """
-        Process data for a range of years and months.
-        
+        Process data for a specific quarter.
+
+        Args:
+            year (int): Year to process
+            quarter (int): Quarter (1-4)
+            ha_tunnus (str): Administrative branch code
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        # Check if already completed
+        period_key = f"{year}-Q{quarter}-{ha_tunnus}"
+        if period_key in self.progress.get('completed', {}):
+            logger.info(f"Quarter {period_key} already processed. Skipping.")
+            return True
+
+        # Extract data
+        df = self.extract_quarter_data(year, quarter, ha_tunnus)
+
+        if df is not None and not df.empty:
+            # Load data to BigQuery
+            if self.load_to_bigquery(df):
+                self.progress['completed'][period_key] = True
+                self._save_progress()
+                return True
+            else:
+                self.progress['failed'][period_key] = True
+                self._save_progress()
+                return False
+        else:
+            self.progress['failed'][period_key] = True
+            self._save_progress()
+            return False
+
+    def process_range(self, start_year: int, end_year: int, ha_tunnus: str = '28'):
+        """
+        Process data for a range of years by quarter.
+
         Args:
             start_year (int): Start year
             end_year (int): End year
-            start_month (int): Start month (1-12)
-            end_month (int): End month (1-12)
             ha_tunnus (str): Administrative branch code
         """
         current_period = 0
         for year in range(start_year, end_year + 1):
-            for month in range(start_month, end_month + 1):
-                self.process_month(year, month, ha_tunnus)
+            for quarter in range(1, 5):
+                self.process_quarter(year, quarter, ha_tunnus)
                 current_period += 1
                 # Save progress periodically
-                if current_period % 5 == 0:
+                if current_period % 2 == 0:
                     self._save_progress()
 
 if __name__ == "__main__":
@@ -245,7 +320,5 @@ if __name__ == "__main__":
     pipeline.process_range(
         start_year=start_year,
         end_year=end_year,
-        start_month=args.start_month,
-        end_month=args.end_month,
         ha_tunnus=args.ha_tunnus
     )
